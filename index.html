@@ -92,6 +92,48 @@ h6 {font-size: 12px;}
 code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
 pre:not([class]) { background-color: white }</style>
 <script>!function(a,b){"use strict";function c(c,g){var h=this;h.$el=a(c),h.el=c,h.id=e++,h.$el.bind("destroyed",a.proxy(h.teardown,h)),h.$clonedHeader=null,h.$originalHeader=null,h.cachedHeaderHeight=null,h.isSticky=!1,h.hasBeenSticky=!1,h.leftOffset=null,h.topOffset=null,h.init=function(){h.setOptions(g),h.$el.each(function(){var b=a(this);b.css("padding",0),h.$originalHeader=a("thead:first",this),h.$clonedHeader=h.$originalHeader.clone(),b.trigger("clonedHeader."+d,[h.$clonedHeader]),h.$clonedHeader.addClass("tableFloatingHeader"),h.$clonedHeader.css({display:"none",opacity:0}),h.$originalHeader.addClass("tableFloatingHeaderOriginal"),h.$originalHeader.after(h.$clonedHeader),h.$printStyle=a('<style type="text/css" media="print">.tableFloatingHeader{display:none !important;}.tableFloatingHeaderOriginal{position:static !important;}</style>'),h.$head.append(h.$printStyle)}),h.updateWidth(),h.toggleHeaders(),h.bind()},h.destroy=function(){h.$el.unbind("destroyed",h.teardown),h.teardown()},h.teardown=function(){h.isSticky&&h.$originalHeader.css("position","static"),a.removeData(h.el,"plugin_"+d),h.unbind(),h.$clonedHeader.remove(),h.$originalHeader.removeClass("tableFloatingHeaderOriginal"),h.$originalHeader.css("visibility","visible"),h.$printStyle.remove(),h.el=null,h.$el=null},h.bind=function(){h.$scrollableArea.on("scroll."+d,h.toggleHeaders),h.isWindowScrolling||(h.$window.on("scroll."+d+h.id,h.setPositionValues),h.$window.on("resize."+d+h.id,h.toggleHeaders)),h.$scrollableArea.on("resize."+d,h.toggleHeaders),h.$scrollableArea.on("resize."+d,h.updateWidth)},h.unbind=function(){h.$scrollableArea.off("."+d,h.toggleHeaders),h.isWindowScrolling||(h.$window.off("."+d+h.id,h.setPositionValues),h.$window.off("."+d+h.id,h.toggleHeaders)),h.$scrollableArea.off("."+d,h.updateWidth)},h.debounce=function(a,b){var c=null;return function(){var d=this,e=arguments;clearTimeout(c),c=setTimeout(function(){a.apply(d,e)},b)}},h.toggleHeaders=h.debounce(function(){h.$el&&h.$el.each(function(){var b,c=a(this),e=h.isWindowScrolling?isNaN(h.options.fixedOffset)?h.options.fixedOffset.outerHeight():h.options.fixedOffset:h.$scrollableArea.offset().top+(isNaN(h.options.fixedOffset)?0:h.options.fixedOffset),f=c.offset(),g=h.$scrollableArea.scrollTop()+e,i=h.$scrollableArea.scrollLeft(),j=h.options.cacheHeaderHeight?h.cachedHeaderHeight:h.$clonedHeader.height(),k=h.isWindowScrolling?g>f.top:e>f.top,l=(h.isWindowScrolling?g:0)<f.top+c.height()-j-(h.isWindowScrolling?0:e);k&&l?(b=f.left-i+h.options.leftOffset,h.$originalHeader.css({position:"fixed","margin-top":h.options.marginTop,left:b,"z-index":3}),h.leftOffset=b,h.topOffset=e,h.$clonedHeader.css("display",""),h.isSticky||(h.isSticky=!0,h.updateWidth(),c.trigger("enabledStickiness."+d)),h.setPositionValues()):h.isSticky&&(h.$originalHeader.css("position","static"),h.$clonedHeader.css("display","none"),h.isSticky=!1,h.resetWidth(a("td,th",h.$clonedHeader),a("td,th",h.$originalHeader)),c.trigger("disabledStickiness."+d))})},0),h.setPositionValues=h.debounce(function(){var a=h.$window.scrollTop(),b=h.$window.scrollLeft();!h.isSticky||0>a||a+h.$window.height()>h.$document.height()||0>b||b+h.$window.width()>h.$document.width()||h.$originalHeader.css({top:h.topOffset-(h.isWindowScrolling?0:a),left:h.leftOffset-(h.isWindowScrolling?0:b)})},0),h.updateWidth=h.debounce(function(){if(h.isSticky){h.$originalHeaderCells||(h.$originalHeaderCells=a("th,td",h.$originalHeader)),h.$clonedHeaderCells||(h.$clonedHeaderCells=a("th,td",h.$clonedHeader));var b=h.getWidth(h.$clonedHeaderCells);h.setWidth(b,h.$clonedHeaderCells,h.$originalHeaderCells),h.$originalHeader.css("width",h.$clonedHeader.width()),h.options.cacheHeaderHeight&&(h.cachedHeaderHeight=h.$clonedHeader.height())}},0),h.getWidth=function(c){var d=[];return c.each(function(c){var e,f=a(this);if("border-box"===f.css("box-sizing")){var g=f[0].getBoundingClientRect();e=g.width?g.width:g.right-g.left}else{var i=a("th",h.$originalHeader);if("collapse"===i.css("border-collapse"))if(b.getComputedStyle)e=parseFloat(b.getComputedStyle(this,null).width);else{var j=parseFloat(f.css("padding-left")),k=parseFloat(f.css("padding-right")),l=parseFloat(f.css("border-width"));e=f.outerWidth()-j-k-l}else e=f.width()}d[c]=e}),d},h.setWidth=function(a,b,c){b.each(function(b){var d=a[b];c.eq(b).css({"min-width":d,"max-width":d})})},h.resetWidth=function(b,c){b.each(function(b){var d=a(this);c.eq(b).css({"min-width":d.css("min-width"),"max-width":d.css("max-width")})})},h.setOptions=function(b){h.options=a.extend({},f,b),h.$window=a(h.options.objWindow),h.$head=a(h.options.objHead),h.$document=a(h.options.objDocument),h.$scrollableArea=a(h.options.scrollableArea),h.isWindowScrolling=h.$scrollableArea[0]===h.$window[0]},h.updateOptions=function(a){h.setOptions(a),h.unbind(),h.bind(),h.updateWidth(),h.toggleHeaders()},h.init()}var d="stickyTableHeaders",e=0,f={fixedOffset:0,leftOffset:0,marginTop:0,objDocument:document,objHead:"head",objWindow:b,scrollableArea:b,cacheHeaderHeight:!1};a.fn[d]=function(b){return this.each(function(){var e=a.data(this,"plugin_"+d);e?"string"==typeof b?e[b].apply(e):e.updateOptions(b):"destroy"!==b&&a.data(this,"plugin_"+d,new c(this,b))})}}(jQuery,window);</script>
+<style type="text/css">.value-box-primary, .bg-primary {
+background-color: rgba(39, 128, 227, 0.7);
+}
+.value-box-info, .bg-info {
+background-color: rgba(153, 84, 187, 0.7);
+}
+.value-box-success, .bg-success {
+background-color: rgba(63, 182, 24, 0.7);
+}
+.value-box-warning, .bg-warning {
+background-color: rgba(255, 117, 24, 0.7);
+}
+.value-box-danger, .bg-danger {
+background-color: rgba(255, 0, 57, 0.7);
+}
+</style>
+<style type="text/css">body{background:#f5f5f5;padding:60px 0 0 8px}body hr{border-color:#dfdfdf;margin:10px 0}.navbar-inverse .navbar-nav>li>a,.navbar .navbar-brand{text-decoration:none}.navbar-logo{margin-top:1px}.navbar-logo img{margin-right:12px}.navbar-author{margin-left:10px;font-size:15.4px}.navbar .dropdown-menu .fa{min-width:20px}.navbar .dropdown-menu{min-width:150px;max-height:500px;overflow:auto}.chart-wrapper,.nav-tabs-custom,.sbframe-commentary{background:#fff;border:1px solid #dfdfdf;border-radius:.25rem;margin-bottom:8px;margin-right:8px}.chart-title{border-bottom:1px solid #dfdfdf;font-size:14px;font-weight:300;padding:7px 10px 4px;color:inherit;font-family:inherit}.chart-wrapper .chart-title:empty{display:none}.chart-wrapper .chart-stage{overflow:hidden;padding:5px 10px;position:relative}.chart-wrapper .chart-notes{background:#fcfcfc;border-top:1px solid #dfdfdf;color:#999;font-size:12.25px;padding:8px 10px 5px}#dashboard-container{visibility:hidden}.tab-content>.dashboard-page-wrapper.active{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.dashboard-page-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.dashboard-row-orientation{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.dashboard-row{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}.dashboard-row-flex{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.dashboard-column-orientation{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}.dashboard-column{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.chart-wrapper-flex{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.chart-stage-flex{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;position:relative}.chart-shim{position:absolute;left:8px;top:8px;right:8px;bottom:8px}.no-padding .chart-shim{left:0;top:0;right:0;bottom:0}.flowing-content-shim{overflow:auto;left:0;top:0;right:0;bottom:0;padding-left:8px;padding-right:8px}.flowing-content-container{padding-top:8px;padding-bottom:8px}.chart-stage .table-bordered{border:none}.chart-stage .table-bordered>tbody>tr>th,.chart-stage .table-bordered>tfoot>tr>th,.chart-stage .table-bordered>tbody>tr>td,.chart-stage .table-bordered>tfoot>tr>td{border:none}.chart-stage .table-bordered>tbody>tr>td{border-top:1px solid #dfdfdf}.chart-stage .table-bordered>thead>tr>th{border:none;border-bottom:2px solid #dfdfdf}.bootstrap-table table>thead{background-color:#fff}.bootstrap-table table.data,.bootstrap-table table.shiny-table{width:inherit !important}.bootstrap-table table.data>tbody>tr>th,.bootstrap-table table.shiny-table>tbody>tr>th{border-top:none;border-bottom:2px solid #dfdfdf;padding:5px}.bootstrap-table .data td[align=right]{font-family:inherit}.chart-wrapper form{padding-left:5px;padding-right:5px}.shiny-input-container label{font-weight:normal}.chart-stage .html-widget{width:100% !important;height:100% !important}.chart-stage .html-widget-static-bound{width:100% !important;height:100% !important}.chart-stage .shiny-bound-output{width:100% !important;height:100% !important}.chart-shim>p:empty{display:none}.chart-stage>p:empty{display:none}.chart-stage .knitr-options{display:none}.image-container{position:absolute;top:0;left:0;right:0;bottom:0;margin:0}.image-container img{opacity:0;overflow:hidden}.storyboard-nav .sbnext,.storyboard-nav .sbprev{font-size:49px;color:#333}.storyboard-nav .sbframelist ul li{background:#fff;border:1px solid #dfdfdf;border-radius:.25rem;color:#666;font-size:14px}.storyboard-nav .sbframelist ul li.active{color:#fff;background-color:rgba(51,122,183,0.7)}.sbframe-commentary{background:#fcfcfc;font-size:14px}.nav-tabs-custom>.nav-tabs{margin:0;border-bottom:1px solid #dfdfdf;color:rgba(92,92,92,0.6);font-size:14px;font-weight:300;font-family:inherit;border-top-right-radius:3px;border-top-left-radius:3px}.nav-tabs-custom>.nav-tabs>li{border-top:3px solid transparent;margin-bottom:-1px;margin-right:5px}.nav-tabs-custom>.nav-tabs>li>a,.nav-tabs-custom>.nav-tabs>li>a:active{color:#5c5c5c;font-weight:300;font-size:14px;border-radius:0;padding:3px 10px 5px;text-transform:none}.nav-tabs-custom>.nav-tabs>li:not(.active)>a{border-bottom-color:transparent}.nav-tabs-custom>.nav-tabs>li>a.text-muted{color:rgba(92,92,92,0.6)}.nav-tabs-custom>.nav-tabs>li>a,.nav-tabs-custom>.nav-tabs>li>a:hover{background:transparent;margin:0}.nav-tabs-custom>.nav-tabs>li>a:hover{color:rgba(92,92,92,0.6)}.nav-tabs-custom>.nav-tabs>li:not(.active)>a:hover,.nav-tabs-custom>.nav-tabs>li:not(.active)>a:focus,.nav-tabs-custom>.nav-tabs>li:not(.active)>a:active{border-color:transparent}.nav-tabs-custom>.nav-tabs>li.active{border-top-color:#337ab7}.nav-tabs-custom>.nav-tabs>li.active>a,.nav-tabs-custom>.nav-tabs>li.active:hover>a{background-color:#fff;color:#5c5c5c}.nav-tabs-custom>.nav-tabs>li.active>a{border-top-color:transparent;border-left-color:#dfdfdf;border-right-color:#dfdfdf}.nav-tabs-custom>.nav-tabs>li:first-of-type{margin-left:0}.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a{border-left-color:transparent}.nav-tabs-custom>.nav-tabs.pull-right{float:none !important}.nav-tabs-custom>.nav-tabs.pull-right>li{float:right}.nav-tabs-custom>.nav-tabs.pull-right>li:first-of-type{margin-right:0}.nav-tabs-custom>.nav-tabs.pull-right>li:first-of-type>a{border-left-width:1px}.nav-tabs-custom>.nav-tabs.pull-right>li:first-of-type.active>a{border-left-color:#dfdfdf;border-right-color:transparent}.nav-tabs-custom>.nav-tabs>li.header{line-height:35px;padding:0 10px;font-size:21px;color:#5c5c5c}.nav-tabs-custom>.nav-tabs>li.header>.fa,.nav-tabs-custom>.nav-tabs>li.header>.glyphicon,.nav-tabs-custom>.nav-tabs>li.header>.ion{margin-right:5px}.nav-tabs-custom>.tab-content{background:#fff;padding:0;border-bottom-right-radius:3px;border-bottom-left-radius:3px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.nav-tabs-custom>.tab-content>.chart-wrapper{background:#fff;border:none;margin:0}.nav-tabs-custom>.tab-content>.active{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.nav-tabs-custom .dropdown.open>a:active,.nav-tabs-custom .dropdown.open>a:focus{background:transparent;color:#5c5c5c}@media (max-width: 767px){.value-box{text-align:center;margin-right:8px}.value-box .icon{display:none}}.section.sidebar{position:fixed;top:51px;left:0;bottom:0;border-right:1px solid #dfdfdf;background-color:rgba(51,122,183,0.1);padding-top:10px;padding-left:10px;padding-right:10px;visibility:hidden;overflow:auto}.section.sidebar form p:first-child{margin-top:10px}#flexdashboard-source-code{display:none}.featherlight-content #flexdashboard-source-code{display:inline-block}.featherlight-content{width:80%;max-width:800px;padding:0 !important;border-bottom:none !important}.featherlight:last-of-type{background:rgba(51,51,51,0.7)}.featherlight-inner{width:100%}.featherlight-content pre{margin:0;border:0;background:#fff;font-size:12.25px}.unselectable{-ms-user-select:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:-moz-none;-o-user-select:none;user-select:none}#flexdashboard-source-code code{-ms-user-select:text;-webkit-user-select:text;-khtml-user-select:text;-moz-user-select:text;-o-user-select:text;user-select:text}.dataTables_filter input[type="search"]{-webkit-appearance:searchfield;outline:none}.dataTables_wrapper.no-footer .dataTables_info{padding-top:0}table.dataTable thead th{border-bottom:1px solid #dfdfdf}.dataTables_wrapper.no-footer .dataTables_scrollBody{border-bottom:1px solid #dfdfdf}.desktop-layout div.section.mobile{display:none}.mobile-layout div.section.no-mobile{display:none}.mobile-figure{display:none}
+</style>
+<style type="text/css">body {
+padding-top: 60px;
+}
+.section.sidebar {
+top: 51px;
+background-color: rgba(39, 128, 227, 0.1);
+}
+.value-box {
+color: #f9f9f9;
+}
+.storyboard-nav .sbframelist ul li.active {
+background-color: rgba(39, 128, 227, 0.7);
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+border-top-color: rgba(39, 128, 227, 0.7);
+}
+.chart-title {
+font-weight: 500;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+font-weight: 500;
+}
+</style>
 <script>(function() {
   // If window.HTMLWidgets is already defined, then use it; otherwise create a
   // new object. This allows preceding code to set options that affect the
@@ -4210,7 +4252,7 @@ function asArray(value) {
 
 	L.TileLayer.Provider.providers = {
 		OpenStreetMap: {
-			url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			options: {
 				maxZoom: 19,
 				attribution:
@@ -4219,27 +4261,27 @@ function asArray(value) {
 			variants: {
 				Mapnik: {},
 				DE: {
-					url: '//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+					url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
 					options: {
 						maxZoom: 18
 					}
 				},
 				CH: {
-					url: '//tile.osm.ch/switzerland/{z}/{x}/{y}.png',
+					url: 'https://tile.osm.ch/switzerland/{z}/{x}/{y}.png',
 					options: {
 						maxZoom: 18,
 						bounds: [[45, 5], [48, 11]]
 					}
 				},
 				France: {
-					url: '//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
+					url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
 					options: {
 						maxZoom: 20,
-						attribution: '&copy; Openstreetmap France | {attribution.OpenStreetMap}'
+						attribution: '&copy; OpenStreetMap France | {attribution.OpenStreetMap}'
 					}
 				},
 				HOT: {
-					url: '//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+					url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
 					options: {
 						attribution:
 							'{attribution.OpenStreetMap}, ' +
@@ -4248,7 +4290,7 @@ function asArray(value) {
 					}
 				},
 				BZH: {
-					url: '//tile.openstreetmap.bzh/br/{z}/{x}/{y}.png',
+					url: 'https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png',
 					options: {
 						attribution: '{attribution.OpenStreetMap}, Tiles courtesy of <a href="http://www.openstreetmap.bzh/" target="_blank">Breton OpenStreetMap Team</a>',
 						bounds: [[46.2, -5.5], [50, 0.7]]
@@ -4257,16 +4299,16 @@ function asArray(value) {
 			}
 		},
 		OpenSeaMap: {
-			url: '//tiles.openseamap.org/seamark/{z}/{x}/{y}.png',
+			url: 'https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png',
 			options: {
 				attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
 			}
 		},
-		OpenPtMap: {
-			url: 'http://openptmap.org/tiles/{z}/{x}/{y}.png',
+		OPNVKarte: {
+			url: 'https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png',
 			options: {
-				maxZoom: 17,
-				attribution: 'Map data: &copy; <a href="http://www.openptmap.org">OpenPtMap</a> contributors'
+				maxZoom: 18,
+				attribution: 'Map <a href="https://memomaps.de/">memomaps.de</a> <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, map data {attribution.OpenStreetMap}'
 			}
 		},
 		OpenTopoMap: {
@@ -4291,10 +4333,31 @@ function asArray(value) {
 			}
 		},
 		SafeCast: {
-			url: '//s3.amazonaws.com/te512.safecast.org/{z}/{x}/{y}.png',
+			url: 'https://s3.amazonaws.com/te512.safecast.org/{z}/{x}/{y}.png',
 			options: {
 				maxZoom: 16,
 				attribution: 'Map data: {attribution.OpenStreetMap} | Map style: &copy; <a href="https://blog.safecast.org/about/">SafeCast</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+			}
+		},
+		Stadia: {
+			url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
+			options: {
+				maxZoom: 20,
+				attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+			},
+			variants: {
+				AlidadeSmooth: {
+					url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
+				},
+				AlidadeSmoothDark: {
+					url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+				},
+				OSMBright: {
+					url: 'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png'
+				},
+				Outdoors: {
+					url: 'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png'
+				}
 			}
 		},
 		Thunderforest: {
@@ -4330,60 +4393,17 @@ function asArray(value) {
 				Neighbourhood: 'neighbourhood'
 			}
 		},
-		OpenMapSurfer: {
-			url: 'https://maps.heigit.org/openmapsurfer/tiles/{variant}/webmercator/{z}/{x}/{y}.png',
+		CyclOSM: {
+			url: 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
 			options: {
-				maxZoom: 19,
-				variant: 'roads',
-				attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> | Map data '
-			},
-			variants: {
-				Roads: {
-					options: {
-						variant: 'roads',
-						attribution: '{attribution.OpenMapSurfer}{attribution.OpenStreetMap}'
-					}
-				},
-				Hybrid: {
-					options: {
-						variant: 'hybrid',
-						attribution: '{attribution.OpenMapSurfer}{attribution.OpenStreetMap}'
-					}
-				},
-				AdminBounds: {
-					options: {
-						variant: 'adminb',
-						maxZoom: 18,
-						attribution: '{attribution.OpenMapSurfer}{attribution.OpenStreetMap}'
-					}
-				},
-				ContourLines: {
-					options: {
-						variant: 'asterc',
-						maxZoom: 18,
-						minZoom: 13,
-						attribution: '{attribution.OpenMapSurfer} <a href="https://lpdaac.usgs.gov/products/aster_policies">ASTER GDEM</a>'
-					}
-				},
-				Hillshade: {
-					options: {
-						variant: 'asterh',
-						maxZoom: 18,
-						attribution: '{attribution.OpenMapSurfer} <a href="https://lpdaac.usgs.gov/products/aster_policies">ASTER GDEM</a>, <a href="http://srtm.csi.cgiar.org/">SRTM</a>'
-					}
-				},
-				ElementsAtRisk: {
-					options: {
-						variant: 'elements_at_risk',
-						attribution: '{attribution.OpenMapSurfer}{attribution.OpenStreetMap}'
-					}
-				}
+				maxZoom: 20,
+				attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: {attribution.OpenStreetMap}'
 			}
 		},
 		Hydda: {
-			url: '//{s}.tile.openstreetmap.se/hydda/{variant}/{z}/{x}/{y}.png',
+			url: 'https://{s}.tile.openstreetmap.se/hydda/{variant}/{z}/{x}/{y}.png',
 			options: {
-				maxZoom: 18,
+				maxZoom: 20,
 				variant: 'full',
 				attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data {attribution.OpenStreetMap}'
 			},
@@ -4393,20 +4413,75 @@ function asArray(value) {
 				RoadsAndLabels: 'roads_and_labels'
 			}
 		},
-		MapBox: {
-			url: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}{r}.png?access_token={accessToken}',
+		Jawg: {
+			url: 'https://{s}.tile.jawg.io/{variant}/{z}/{x}/{y}{r}.png?access-token={accessToken}',
 			options: {
 				attribution:
-					'<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox</a> ' +
+					'<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> ' +
+					'{attribution.OpenStreetMap}',
+				minZoom: 0,
+				maxZoom: 22,
+				subdomains: 'abcd',
+				variant: 'jawg-terrain',
+				// Get your own Jawg access token here : https://www.jawg.io/lab/
+				// NB : this is a demonstration key that comes with no guarantee
+				accessToken: '<insert your access token here>',
+			},
+			variants: {
+				Streets: 'jawg-streets',
+				Terrain: 'jawg-terrain',
+				Sunny: 'jawg-sunny',
+				Dark: 'jawg-dark',
+				Light: 'jawg-light',
+				Matrix: 'jawg-matrix'
+			}
+		},
+		MapBox: {
+			url: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}{r}?access_token={accessToken}',
+			options: {
+				attribution:
+					'&copy; <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> ' +
 					'{attribution.OpenStreetMap} ' +
 					'<a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
-				subdomains: 'abcd',
-				id: 'mapbox.streets',
+				tileSize: 512,
+				maxZoom: 18,
+				zoomOffset: -1,
+				id: 'mapbox/streets-v11',
 				accessToken: '<insert your access token here>',
 			}
 		},
+		MapTiler: {
+			url: 'https://api.maptiler.com/maps/{variant}/{z}/{x}/{y}{r}.{ext}?key={key}',
+			options: {
+				attribution:
+					'<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+				variant: 'streets',
+				ext: 'png',
+				key: '<insert your MapTiler Cloud API key here>',
+				tileSize: 512,
+				zoomOffset: -1,
+				minZoom: 0,
+				maxZoom: 21
+			},
+			variants: {
+				Streets: 'streets',
+				Basic: 'basic',
+				Bright: 'bright',
+				Pastel: 'pastel',
+				Positron: 'positron',
+				Hybrid: {
+					options: {
+						variant: 'hybrid',
+						ext: 'jpg'
+					}
+				},
+				Toner: 'toner',
+				Topo: 'topo',
+				Voyager: 'voyager'
+			}
+		},
 		Stamen: {
-			url: '//stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.{ext}',
+			url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.{ext}',
 			options: {
 				attribution:
 					'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' +
@@ -4426,7 +4501,7 @@ function asArray(value) {
 				TonerLabels: 'toner-labels',
 				TonerLite: 'toner-lite',
 				Watercolor: {
-					url: '//stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.{ext}',
+					url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.{ext}',
 					options: {
 						variant: 'watercolor',
 						ext: 'jpg',
@@ -4456,7 +4531,7 @@ function asArray(value) {
 					}
 				},
 				TopOSMRelief: {
-					url: '//stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.{ext}',
+					url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/{variant}/{z}/{x}/{y}.{ext}',
 					options: {
 						variant: 'toposm-color-relief',
 						ext: 'jpg',
@@ -4491,7 +4566,7 @@ function asArray(value) {
 			}
 		},
 		Esri: {
-			url: '//server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
+			url: 'https://server.arcgisonline.com/ArcGIS/rest/services/{variant}/MapServer/tile/{z}/{y}/{x}',
 			options: {
 				variant: 'World_Street_Map',
 				attribution: 'Tiles &copy; Esri'
@@ -4579,7 +4654,7 @@ function asArray(value) {
 			options: {
 				maxZoom: 19,
 				attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-				apiKey:'<insert your api key here>',
+				apiKey: '<insert your api key here>',
 				opacity: 0.5
 			},
 			variants: {
@@ -4599,7 +4674,7 @@ function asArray(value) {
 		HERE: {
 			/*
 			 * HERE maps, formerly Nokia maps.
-			 * These basemaps are free, but you need an API key. Please sign up at
+			 * These basemaps are free, but you need an api id and app key. Please sign up at
 			 * https://developer.here.com/plans
 			 */
 			url:
@@ -4715,12 +4790,120 @@ function asArray(value) {
 				}
 			}
 		},
+		HEREv3: {
+			/*
+			 * HERE maps API Version 3.
+			 * These basemaps are free, but you need an API key. Please sign up at
+			 * https://developer.here.com/plans
+			 * Version 3 deprecates the app_id and app_code access in favor of apiKey
+			 *
+			 * Supported access methods as of 2019/12/21:
+			 * @see https://developer.here.com/faqs#access-control-1--how-do-you-control-access-to-here-location-services
+			 */
+			url:
+				'https://{s}.{base}.maps.ls.hereapi.com/maptile/2.1/' +
+				'{type}/{mapID}/{variant}/{z}/{x}/{y}/{size}/{format}?' +
+				'apiKey={apiKey}&lg={language}',
+			options: {
+				attribution:
+					'Map &copy; 1987-' + new Date().getFullYear() + ' <a href="http://developer.here.com">HERE</a>',
+				subdomains: '1234',
+				mapID: 'newest',
+				apiKey: '<insert your apiKey here>',
+				base: 'base',
+				variant: 'normal.day',
+				maxZoom: 20,
+				type: 'maptile',
+				language: 'eng',
+				format: 'png8',
+				size: '256'
+			},
+			variants: {
+				normalDay: 'normal.day',
+				normalDayCustom: 'normal.day.custom',
+				normalDayGrey: 'normal.day.grey',
+				normalDayMobile: 'normal.day.mobile',
+				normalDayGreyMobile: 'normal.day.grey.mobile',
+				normalDayTransit: 'normal.day.transit',
+				normalDayTransitMobile: 'normal.day.transit.mobile',
+				normalNight: 'normal.night',
+				normalNightMobile: 'normal.night.mobile',
+				normalNightGrey: 'normal.night.grey',
+				normalNightGreyMobile: 'normal.night.grey.mobile',
+				normalNightTransit: 'normal.night.transit',
+				normalNightTransitMobile: 'normal.night.transit.mobile',
+				reducedDay: 'reduced.day',
+				reducedNight: 'reduced.night',
+				basicMap: {
+					options: {
+						type: 'basetile'
+					}
+				},
+				mapLabels: {
+					options: {
+						type: 'labeltile',
+						format: 'png'
+					}
+				},
+				trafficFlow: {
+					options: {
+						base: 'traffic',
+						type: 'flowtile'
+					}
+				},
+				carnavDayGrey: 'carnav.day.grey',
+				hybridDay: {
+					options: {
+						base: 'aerial',
+						variant: 'hybrid.day'
+					}
+				},
+				hybridDayMobile: {
+					options: {
+						base: 'aerial',
+						variant: 'hybrid.day.mobile'
+					}
+				},
+				hybridDayTransit: {
+					options: {
+						base: 'aerial',
+						variant: 'hybrid.day.transit'
+					}
+				},
+				hybridDayGrey: {
+					options: {
+						base: 'aerial',
+						variant: 'hybrid.grey.day'
+					}
+				},
+				pedestrianDay: 'pedestrian.day',
+				pedestrianNight: 'pedestrian.night',
+				satelliteDay: {
+					options: {
+						base: 'aerial',
+						variant: 'satellite.day'
+					}
+				},
+				terrainDay: {
+					options: {
+						base: 'aerial',
+						variant: 'terrain.day'
+					}
+				},
+				terrainDayMobile: {
+					options: {
+						base: 'aerial',
+						variant: 'terrain.day.mobile'
+					}
+				}
+			}
+		},
 		FreeMapSK: {
-			url: 'http://t{s}.freemap.sk/T/{z}/{x}/{y}.jpeg',
+			url: 'https://{s}.freemap.sk/T/{z}/{x}/{y}.jpeg',
 			options: {
 				minZoom: 8,
 				maxZoom: 16,
-				subdomains: '1234',
+				subdomains: 'abcd',
 				bounds: [[47.204642, 15.996093], [49.830896, 22.576904]],
 				attribution:
 					'{attribution.OpenStreetMap}, vizualization CC-By-SA 2.0 <a href="http://freemap.sk">Freemap.sk</a>'
@@ -4738,7 +4921,7 @@ function asArray(value) {
 			options: {
 				attribution: '{attribution.OpenStreetMap} &copy; <a href="https://carto.com/attributions">CARTO</a>',
 				subdomains: 'abcd',
-				maxZoom: 19,
+				maxZoom: 20,
 				variant: 'light_all'
 			},
 			variants: {
@@ -4772,11 +4955,12 @@ function asArray(value) {
 			}
 		},
 		BasemapAT: {
-			url: '//maps{s}.wien.gv.at/basemap/{variant}/normal/google3857/{z}/{y}/{x}.{format}',
+			url: 'https://maps{s}.wien.gv.at/basemap/{variant}/{type}/google3857/{z}/{y}/{x}.{format}',
 			options: {
 				maxZoom: 19,
 				attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',
 				subdomains: ['', '1', '2', '3', '4'],
+				type: 'normal',
 				format: 'png',
 				bounds: [[46.358770, 8.782379], [49.037872, 17.189532]],
 				variant: 'geolandbasemap'
@@ -4790,6 +4974,20 @@ function asArray(value) {
 				},
 				grau: 'bmapgrau',
 				overlay: 'bmapoverlay',
+				terrain: {
+					options: {
+						variant: 'bmapgelaende',
+						type: 'grau',
+						format: 'jpeg'
+					}
+				},
+				surface: {
+					options: {
+						variant: 'bmapoberflaeche',
+						type: 'grau',
+						format: 'jpeg'
+					}
+				},
 				highdpi: {
 					options: {
 						variant: 'bmaphidpi',
@@ -4806,19 +5004,19 @@ function asArray(value) {
 			}
 		},
 		nlmaps: {
-			url: '//geodata.nationaalgeoregister.nl/tiles/service/wmts/{variant}/EPSG:3857/{z}/{x}/{y}.png',
+			url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/{variant}/EPSG:3857/{z}/{x}/{y}.png',
 			options: {
 				minZoom: 6,
 				maxZoom: 19,
 				bounds: [[50.5, 3.25], [54, 7.6]],
-				attribution: 'Kaartgegevens &copy; <a href="kadaster.nl">Kadaster</a>'
+				attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>'
 			},
 			variants: {
 				'standaard': 'brtachtergrondkaart',
 				'pastel': 'brtachtergrondkaartpastel',
 				'grijs': 'brtachtergrondkaartgrijs',
 				'luchtfoto': {
-					'url': '//geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/1.0.0/2016_ortho25/EPSG:3857/{z}/{x}/{y}.png',
+					'url': 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0/Actueel_ortho25/EPSG:3857/{z}/{x}/{y}.jpeg',
 				}
 			}
 		},
@@ -4854,7 +5052,7 @@ function asArray(value) {
 				},
 				ModisTerraSnowCover: {
 					options: {
-						variant: 'MODIS_Terra_Snow_Cover',
+						variant: 'MODIS_Terra_NDSI_Snow_Cover',
 						format: 'png',
 						maxZoom: 8,
 						opacity: 0.75
@@ -4887,7 +5085,7 @@ function asArray(value) {
 			//   z0-9  - 1:1m
 			//  z10-11 - quarter inch (1:253440)
 			//  z12-18 - one inch (1:63360)
-			url: '//nls-{s}.tileserver.com/nls/{z}/{x}/{y}.jpg',
+			url: 'https://nls-{s}.tileserver.com/nls/{z}/{x}/{y}.jpg',
 			options: {
 				attribution: '<a href="http://geo.nls.uk/maps/">National Library of Scotland Historic Maps</a>',
 				bounds: [[49.6, -12], [61.7, 3]],
@@ -4900,7 +5098,7 @@ function asArray(value) {
 			// Justice Map (http://www.justicemap.org/)
 			// Visualize race and income data for your community, county and country.
 			// Includes tools for data journalists, bloggers and community activists.
-			url: 'http://www.justicemap.org/tile/{size}/{variant}/{z}/{x}/{y}.png',
+			url: 'https://www.justicemap.org/tile/{size}/{variant}/{z}/{x}/{y}.png',
 			options: {
 				attribution: '<a href="http://www.justicemap.org/terms.php">Justice Map</a>',
 				// one of 'county', 'tract', 'block'
@@ -4920,14 +5118,6 @@ function asArray(value) {
 				plurality: 'plural'
 			}
 		},
-		Wikimedia: {
-			url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
-			options: {
-				attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
-				minZoom: 1,
-				maxZoom: 19
-			}
-		},
 		GeoportailFrance: {
 			url: 'https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER={variant}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
 			options: {
@@ -4938,31 +5128,30 @@ function asArray(value) {
 				// Get your own geoportail apikey here : http://professionnels.ign.fr/ign/contrats/
 				// NB : 'choisirgeoportail' is a demonstration key that comes with no guarantee
 				apikey: 'choisirgeoportail',
-				format: 'image/jpeg',
-				style : 'normal',
-				variant: 'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD'
+				format: 'image/png',
+				style: 'normal',
+				variant: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2'
 			},
 			variants: {
+				plan: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2',
 				parcels: {
-					options : {
-						variant: 'CADASTRALPARCELS.PARCELS',
-						maxZoom: 20,
-						style : 'bdparcellaire',
-						format: 'image/png'
+					options: {
+						variant: 'CADASTRALPARCELS.PARCELLAIRE_EXPRESS',
+						style: 'PCI vecteur',
+						maxZoom: 20
 					}
 				},
-				ignMaps: 'GEOGRAPHICALGRIDSYSTEMS.MAPS',
-				maps: 'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD',
 				orthos: {
 					options: {
 						maxZoom: 19,
+						format: 'image/jpeg',
 						variant: 'ORTHOIMAGERY.ORTHOPHOTOS'
 					}
 				}
 			}
 		},
 		OneMapSG: {
-			url: '//maps-{s}.onemap.sg/v3/{variant}/{z}/{x}/{y}.png',
+			url: 'https://maps-{s}.onemap.sg/v3/{variant}/{z}/{x}/{y}.png',
 			options: {
 				variant: 'Default',
 				minZoom: 11,
@@ -4977,6 +5166,104 @@ function asArray(value) {
 				Grey: 'Grey',
 				LandLot: 'LandLot'
 			}
+		},
+		USGS: {
+			url: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
+			options: {
+				maxZoom: 20,
+				attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
+			},
+			variants: {
+				USTopo: {},
+				USImagery: {
+					url: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}'
+				},
+				USImageryTopo: {
+					url: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}'
+				}
+			}
+		},
+		WaymarkedTrails: {
+			url: 'https://tile.waymarkedtrails.org/{variant}/{z}/{x}/{y}.png',
+			options: {
+				maxZoom: 18,
+				attribution: 'Map data: {attribution.OpenStreetMap} | Map style: &copy; <a href="https://waymarkedtrails.org">waymarkedtrails.org</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+			},
+			variants: {
+				hiking: 'hiking',
+				cycling: 'cycling',
+				mtb: 'mtb',
+				slopes: 'slopes',
+				riding: 'riding',
+				skating: 'skating'
+			}
+		},
+		OpenAIP: {
+			url: 'https://{s}.tile.maps.openaip.net/geowebcache/service/tms/1.0.0/openaip_basemap@EPSG%3A900913@png/{z}/{x}/{y}.{ext}',
+			options: {
+				attribution: '<a href="https://www.openaip.net/">openAIP Data</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-NC-SA</a>)',
+				ext: 'png',
+				minZoom: 4,
+				maxZoom: 14,
+				tms: true,
+				detectRetina: true,
+				subdomains: '12'
+			}
+		},
+		OpenSnowMap: {
+			url: 'https://tiles.opensnowmap.org/{variant}/{z}/{x}/{y}.png',
+			options: {
+				minZoom: 9,
+				maxZoom: 18,
+				attribution: 'Map data: {attribution.OpenStreetMap} & ODbL, &copy; <a href="https://www.opensnowmap.org/iframes/data.html">www.opensnowmap.org</a> <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+			},
+			variants: {
+				pistes: 'pistes',
+			}
+		},
+		AzureMaps: {
+			url: 
+				'https://atlas.microsoft.com/map/tile?api-version={apiVersion}'+
+				'&tilesetId={variant}&x={x}&y={y}&zoom={z}&language={language}'+
+				'&subscription-key={subscriptionKey}',
+			options: {
+				attribution: 'See https://docs.microsoft.com/en-US/rest/api/maps/renderv2/getmaptilepreview for details.',
+				apiVersion: '2.0',
+				variant: 'microsoft.imagery',
+				subscriptionKey: '<insert your subscription key here>',
+				language: 'en-US',
+			},
+			variants: {
+				MicrosoftImagery: 'microsoft.imagery',
+				MicrosoftBaseDarkGrey: 'microsoft.base.darkgrey',
+				MicrosoftBaseRoad: 'microsoft.base.road',
+				MicrosoftBaseHybridRoad: 'microsoft.base.hybrid.road',
+				MicrosoftTerraMain: 'microsoft.terra.main',
+				MicrosoftWeatherInfraredMain: {
+					url: 
+					'https://atlas.microsoft.com/map/tile?api-version={apiVersion}'+
+					'&tilesetId={variant}&x={x}&y={y}&zoom={z}'+
+					'&timeStamp={timeStamp}&language={language}' +
+					'&subscription-key={subscriptionKey}',
+					options: {
+						timeStamp: '2021-05-08T09:03:00Z',
+						attribution: 'See https://docs.microsoft.com/en-US/rest/api/maps/renderv2/getmaptilepreview#uri-parameters for details.',
+						variant: 'microsoft.weather.infrared.main',
+					},
+				},
+				MicrosoftWeatherRadarMain: {
+					url: 
+					'https://atlas.microsoft.com/map/tile?api-version={apiVersion}'+
+					'&tilesetId={variant}&x={x}&y={y}&zoom={z}'+
+					'&timeStamp={timeStamp}&language={language}' +
+					'&subscription-key={subscriptionKey}',
+					options: {
+						timeStamp: '2021-05-08T09:03:00Z',
+						attribution: 'See https://docs.microsoft.com/en-US/rest/api/maps/renderv2/getmaptilepreview#uri-parameters for details.',
+						variant: 'microsoft.weather.radar.main',
+					},
+				}
+			},
 		}
 	};
 
@@ -4992,300 +5279,6 @@ function asArray(value) {
 };
 </script>
 <style type="text/css">
-
-body {
-background: #f2f2f2;
-padding: 60px 0 0 8px; 
-}
-body hr {
-border-color: #d7d7d7;
-margin: 10px 0;
-}
-.navbar-inverse .navbar-nav > li > a,
-.navbar .navbar-brand {
-text-decoration: none;
-}
-.navbar-logo {
-margin-top: 1px;
-}
-.navbar-logo img {
-margin-right: 12px;
-}
-.navbar-author {
-margin-left: 10px;
-font-size: 15px;
-}
-.navbar .dropdown-menu .fa {
-min-width: 20px;
-}
-.navbar .dropdown-menu {
-min-width: 150px;
-max-height: 500px;
-overflow: auto;
-}
-.chart-wrapper,
-.nav-tabs-custom,
-.sbframe-commentary
-{
-background: #fff;
-border: 1px solid #e2e2e2;
-border-radius: 3px;
-margin-bottom: 8px;
-margin-right: 8px;
-}
-.chart-title {
-border-bottom: 1px solid #d7d7d7;
-color: #666;
-font-size: 14px;
-font-weight: 300;
-padding: 7px 10px 4px;
-}
-.chart-wrapper .chart-title:empty {
-display: none;
-}
-.chart-wrapper .chart-stage {
-overflow: hidden;
-padding: 5px 10px;
-position: relative;
-}
-.chart-wrapper .chart-notes {
-background: #fbfbfb;
-border-top: 1px solid #e2e2e2;
-color: #808080;
-font-size: 12px;
-padding: 8px 10px 5px;
-}
-
-#dashboard-container {
-visibility: hidden;
-}
-.tab-content>.dashboard-page-wrapper.active {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
-}
-.dashboard-page-wrapper {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
--webkit-flex-direction: column;
--ms-flex-direction: column;
-flex-direction: column;
-}
-.dashboard-row-orientation {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
--webkit-flex-direction: column;
--ms-flex-direction: column;
-flex-direction: column;
-}
-.dashboard-row {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: horizontal;
--webkit-box-direction: normal;
--webkit-flex-direction: row;
--ms-flex-direction: row;
-flex-direction: row;
-}
-.dashboard-row-flex {
--webkit-box-flex: 1;
--webkit-flex: 1;
--ms-flex: 1;
-flex: 1;
-}
-.dashboard-column-orientation {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: horizontal;
--webkit-box-direction: normal;
--webkit-flex-direction: row;
--ms-flex-direction: row;
-flex-direction: row;
-}
-.dashboard-column {
--webkit-box-flex: 1;
--webkit-flex: 1;
--ms-flex: 1;
-flex: 1;
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
--webkit-flex-direction: column;
--ms-flex-direction: column;
-flex-direction: column;
-}
-.chart-wrapper-flex {
--webkit-box-flex: 1;
--webkit-flex: 1;
--ms-flex: 1;
-flex: 1;
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
--webkit-flex-direction: column;
--ms-flex-direction: column;
-flex-direction: column;
-}
-.chart-stage-flex {
--webkit-box-flex: 1;
--webkit-flex: 1;
--ms-flex: 1;
-flex: 1;
-position: relative;
-}
-.chart-shim {
-position: absolute;
-left: 8px; top: 8px; right: 8px; bottom: 8px;
-}
-.no-padding .chart-shim {
-left: 0; top: 0; right: 0; bottom: 0;
-}
-.flowing-content-shim {
-overflow: auto;
-left: 0; top: 0; right: 0; bottom: 0;
-padding-left: 8px;
-padding-right: 8px;
-}
-.flowing-content-container {
-padding-top: 8px;
-padding-bottom: 8px;
-}
-.chart-stage .table-bordered {
-border: none;
-}
-.chart-stage .table-bordered > tbody > tr > th,
-.chart-stage .table-bordered > tfoot > tr > th,
-.chart-stage .table-bordered > tbody > tr > td,
-.chart-stage .table-bordered > tfoot > tr > td {
-border: none;
-}
-.chart-stage .table-bordered > tbody > tr > td {
-border-top: 1px solid #dddddd;
-}
-.chart-stage .table-bordered > thead > tr > th {
-border: none;
-border-bottom: 2px solid #dddddd;
-}
-.bootstrap-table table>thead {
-background-color: #fff;
-}
-.bootstrap-table table.data,
-.bootstrap-table table.shiny-table {
-width: inherit !important;
-}
-.bootstrap-table table.data>tbody>tr>th,
-.bootstrap-table table.shiny-table>tbody>tr>th {
-border-top: none;
-border-bottom: 2px solid #dddddd;
-padding: 5px;
-}
-.bootstrap-table .data td[align=right] {
-font-family: inherit;
-}
-.chart-wrapper form {
-padding-left: 5px;
-padding-right: 5px;
-}
-.shiny-input-container label {
-font-weight: normal;
-}
-.chart-stage .html-widget {
-width: 100% !important;
-height: 100% !important;
-}
-.chart-stage .html-widget-static-bound {
-width: 100% !important;
-height: 100% !important;
-}
-.chart-stage .shiny-bound-output {
-width: 100% !important;
-height: 100% !important;
-}
-
-.chart-shim>p:empty {
-display: none;
-}
-.chart-stage>p:empty {
-display: none;
-}
-
-.chart-stage .knitr-options {
-display: none;
-}
-
-.image-container {
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-margin: 0;
-}
-.image-container img {
-opacity: 0;
-overflow: hidden;
-}
-
-.value-box {
-border-radius: 2px;
-position: relative;
-display: block;
-margin-right: 8px;
-margin-bottom: 8px;
-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-.value-box > .inner {
-padding: 10px;
-padding-left: 20px;
-padding-right: 20px;
-}
-.value-box .value {
-font-size: 38px;
-font-weight: bold;
-margin: 0 0 3px 0;
-white-space: nowrap;
-padding: 0;
-}
-.value-box .caption {
-font-size: 15px;
-}
-.value-box .caption > small {
-display: block;
-font-size: 13px;
-margin-top: 5px;
-}
-.value-box .icon i {
-position: absolute;
-top: 15px;
-right: 15px;
-font-size: 80px;
-color: rgba(0, 0, 0, 0.15);
-}
-.linked-value:hover {
-cursor: pointer;
-}
-.value-box.linked-value:hover {
-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-}
 
 .storyboard-nav button {
 background: transparent;
@@ -5307,7 +5300,6 @@ opacity: .1;
 float: left;
 width: 2%;
 height: 120px;
-font-size: 50px;
 }
 .storyboard-nav .sbprev {
 text-align: left;
@@ -5338,25 +5330,14 @@ width: 270px;
 height: 100%;
 padding: 10px 10px 10px 10px;
 margin-right: 8px;
-background: #fff;
-border: 1px solid #e2e2e2;
-border-radius: 3px;
-color: #3a3c47;
 text-align: left;
-font-size: 14px;
 cursor: pointer;
 }
 .storyboard-nav .sbframelist ul li:last-child {
 margin-right: 0px;
 }
-.storyboard-nav .sbframelist ul li.active {
-color: #fff;
-background: #B8B8B8;
-}
 .sbframe-commentary {
 width: 300px;
-background: #fbfbfb;
-font-size: 14px;
 }
 .sbframe-commentary ul {
 padding-left: 22px;
@@ -5366,250 +5347,6 @@ display: flex;
 }
 .sbframe:not(.active) {
 display: none;
-}
-
-.nav-tabs-custom > .nav-tabs {
-margin: 0;
-border-bottom: 1px solid #d7d7d7;
-color: #666;
-font-size: 14px;
-font-weight: 300;
-border-top-right-radius: 3px;
-border-top-left-radius: 3px;
-}
-.nav-tabs-custom > .nav-tabs > li {
-border-top: 3px solid transparent;
-margin-bottom: -1px;
-margin-right: 5px;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-color: #666;
-font-weight: 300;
-font-size: 14px;
-border-radius: 0;
-padding: 3px 10px 5px;
-text-transform: none;
-}
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
-border-bottom-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li > a.text-muted {
-color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-background: transparent;
-margin: 0;
-}
-.nav-tabs-custom > .nav-tabs > li > a:hover {
-color: #999;
-}
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
-.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
-border-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.active {
-border-top-color: #3c8dbc;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a,
-.nav-tabs-custom > .nav-tabs > li.active:hover > a {
-background-color: #fff;
-color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.active > a {
-border-top-color: transparent;
-border-left-color: #d7d7d7;
-border-right-color: #d7d7d7;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type {
-margin-left: 0;
-}
-.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
-border-left-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs.pull-right {
-float: none !important;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li {
-float: right;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
-margin-right: 0;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
-border-left-width: 1px;
-}
-.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
-border-left-color: #d7d7d7;
-border-right-color: transparent;
-}
-.nav-tabs-custom > .nav-tabs > li.header {
-line-height: 35px;
-padding: 0 10px;
-font-size: 20px;
-color: #666;
-}
-.nav-tabs-custom > .nav-tabs > li.header > .fa,
-.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
-.nav-tabs-custom > .nav-tabs > li.header > .ion {
-margin-right: 5px;
-}
-.nav-tabs-custom > .tab-content {
-background: #fff;
-padding: 0;
-border-bottom-right-radius: 3px;
-border-bottom-left-radius: 3px;
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
-}
-.nav-tabs-custom > .tab-content > .chart-wrapper {
-background: #fff;
-border: none;
-margin: 0;
-}
-.nav-tabs-custom > .tab-content > .active {
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
-display: flex;
-}
-.nav-tabs-custom .dropdown.open > a:active,
-.nav-tabs-custom .dropdown.open > a:focus {
-background: transparent;
-color: #999;
-}
-@media (max-width: 767px) {
-.value-box {
-text-align: center;
-margin-right: 8px;
-}
-.value-box .icon {
-display: none;
-}
-}
-
-.section.sidebar {
-position: fixed;
-top: 51px; 
-left: 0;
-bottom: 0;
-border-right: 1px solid #e2e2e2;
-background-color: white; 
-padding-left: 10px;
-padding-right: 10px;
-visibility: hidden;
-overflow: auto;
-}
-.section.sidebar form p:first-child {
-margin-top: 10px;
-}
-
-#flexdashboard-source-code {
-display: none;
-}
-.featherlight-content #flexdashboard-source-code {
-display: inline-block;
-}
-.featherlight-content {
-width: 80%;
-max-width: 800px;
-padding: 0 !important;
-border-bottom: none !important;
-}
-.featherlight:last-of-type {
-background: rgba(0, 0, 0, 0.7);
-}
-.featherlight-inner {
-width: 100%;
-}
-.featherlight-content pre {
-margin: 0;
-border: 0;
-background: #fff;
-font-size: 12px;
-}
-.unselectable {
--ms-user-select: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: -moz-none;
--o-user-select: none;
-user-select: none;
-}
-#flexdashboard-source-code code {
--ms-user-select: text;
--webkit-user-select: text;
--khtml-user-select: text;
--moz-user-select: text;
--o-user-select: text;
-user-select: text;
-}
-
-.dataTables_filter input[type="search"] {
--webkit-appearance: searchfield;
-outline: none;
-}
-.dataTables_wrapper.no-footer
-.dataTables_info {
-padding-top: 0;
-}
-table.dataTable thead th {
-border-bottom: 1px solid #d7d7d7;
-}
-.dataTables_wrapper.no-footer .dataTables_scrollBody {
-border-bottom: 1px solid #d7d7d7;
-}
-
-.desktop-layout div.section.mobile {
-display: none;
-}
-.mobile-layout div.section.no-mobile {
-display: none;
-}
-.mobile-figure {
-display: none;
-}
-body {
-padding-top: 60px;
-}
-.section.sidebar {
-top: 51px;
-background-color: rgba(39, 128, 227, 0.1);
-}
-.value-box {
-color: #f9f9f9;
-}
-.bg-primary {
-background-color: rgba(39, 128, 227, 0.7);
-}
-.storyboard-nav .sbframelist ul li.active {
-background-color: rgba(39, 128, 227, 0.7);
-}
-.nav-tabs-custom > .nav-tabs > li.active {
-border-top-color: rgba(39, 128, 227, 0.7);
-}
-.bg-info {
-background-color: rgba(153, 84, 187, 0.7);
-}
-.bg-warning {
-background-color: rgba(255, 117, 24, 0.7);
-}
-.bg-danger {
-background-color: rgba(255, 0, 57, 0.7);
-}
-.bg-success {
-background-color: rgba(63, 182, 24, 0.7);
-}
-.chart-title {
-font-weight: 500;
-}
-.nav-tabs-custom > .nav-tabs > li > a,
-.nav-tabs-custom > .nav-tabs > li > a:active {
-font-weight: 500;
 }
 </style>
 
@@ -5623,12 +5360,6 @@ font-weight: 500;
 <div class="container-fluid">
 <div class="navbar-header">
 
-<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-
 <span class="navbar-logo pull-left">
   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAwCAYAAACxKzLDAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOogAADqIBeCEufQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAp5SURBVGiB7ZlnWJVHFsd/3ErvHSkWVIqgFAHRiGDsxgqr0VhWjTFqLE8syepa1mxInjRjjNGYVdFoErK6GisWFKQIKggBBCWiiEiRXgXeux82Yq7vvWiyT5JHH/+f7p1z5sz5z8x7zpkZHQPfaSqeMUj+bAd+Dzwn9bSgQ1K2lqbIZE8fb6nC3nvto42r501gbsRgikurmDwymJcG+RGTmIFEImF35Hyc7S3p6mjDhjciSM3Mp7KmHn1dBUe2rKSvVzeOxadjZmzA0S9Wcrukghu3S3F2sOL87nXYWJhwNjUbgPEv9mX1vAnI5VLGhvkzKsSHk4mZBPfpwbmotZTcq2bUQB8G+Lpx/vJV4navxdHWgi1rZmNqZMDq1yZQVlnL9Vt31fyXPUrI3tqMBZOHYhfyGoIgcDIpo1322aqZKBRyPo46CkBBURnHt72F6/DFNDTdJ/7yVWaOHYhCLmPu2i+5WVTO6eQfAbhZVIYKOHcxBwCFTMaWv8+m+/DFVNc1AGBhaghAQloueroKvjmaSCcbc2p+lk9ZvonC4nvMCQ9jx3/O8uHOw5gaG4hWSrS3+rh1prahEUEQRMqBXq4kpeW2/09Iy8XKzFhNZ9bft+LV3YmoyPm0qcQ2HqBXdydaWlvbCQHcq6p76JiODkOCvfj6/YVIpVIACovvqdlout/C3fKqx5OKv5iNgb4upkYPZ6BnFwcALmblE+Dt+pCkt6uaUwAqlYrgqWtwdbJlWLC3VlKZebdQyGSYGOq3tz1YKQBBpSImIYOB09fRfL9Fqx1NEH1TzS2tZFy9xbKZozE20CMs0BPPbo6cv5zLkbh0xg3ui5OdBV0dbXg1PIy567ZTUl4NwJszR2FuYkRMwhV2HDhHaIAHe48kAODqbMfMcSEIgoqYxAzaBIGbxeUsn/USCrmMgX09GBvmx4nzV3gxyIvwYYE42JgzwNeNKaP7c+BUKgAhfd0JHxKIjo6EsylZGknpPK8onhI8J/W0QJSnHgddPSX6BoYIQhtVFeJw+lvh7umGt5cbLp1skEoltLUJFBaXkZVzjStpmQht2tPDo3giUiGh/Zk8ZhD93BxwNtNDovO/9vttKnLu1pKYdYvvDp4m9cLlX0XE3NKCBXMnEzGwFy7mulr1qpvaSLpWwp4f4jl8MIbWttYO7XYY/dx7ufHp6lcJ7GL+RE6m3a7mvX8d4fChEx3qyaQyFi2aybKJ/TBU/Lov4G7tfT6Ojmfbtr20tGomp5XUxPDRbFk6Hj35r//s4vLKWB65gx8zxHnE0tqSvZvepl9XCwAqG1spqWmmsr4ZE30FVkZKrAzkjx3jp3uNvP7OTs7HJYtkGkkFDwhky6oZRJ24zPFTCdy5cxddpRJ3j+4MDfFnQr8eWBt2PHCroGLTkTTWv7O5fUb7+HmzL3I+SrmEvbGZnIuL5+TZdLpYy3G20eXMlWrmv9SJg+kqxo8IoL+/H6EeduhqOSk0tQp4jF1Byd1StXaNVfrs6eP5aOchor/7gdKSMhobGqmtreWn/AJOnk5k8+6j5Fa04NnTBXN9zeQkOjoE9bBj5IhQLmTdpLSkjCWvT+VSXhGT528g5lQCrw81JSWnkjsVLbw3rzfRZ4v4cEEQR+Ny8LCsZsm7+ym6lU5amQJXJ1uMlFK1MT44kMqx42dFY4tI2drbEuTfCxMTY1JS0jU6LKgEsrPz2L7vBBUSAwI9nFFqmU0bIyWvjOyHYGzNhsjPOReXglQl0KaC7IJqjn0wij0nclk5PYjs/NtMGdmXPl2VbIy+RtTbQeyPzSf6cDJHTp2moFEP3x5O6MklXLldw+xF7yBoKJpFpKQyObvXzuB8diHJyWkaHf0ludSLGUSfScPbxxsnc32NejKJDiG9nAgd/AJJmT/hYtrIhlkeFJbX0dxYx6Zlw7ldfJeZY4LQ0zXAxtIS325Kauqb+Ca2iM+X9OZqQQX7j6Wy64cE9GwcWL/xa0pKSjWOJ/qm/AN8iN28iJSCSkInLu6QlJohiYSli2exelIwsgcxXwNa2lR8fT6PdZGfsWeFL3bWVtjZdUEm10du6AyqNoSWaprqitmy59/MGD+Yict2U1zZwsxhjhxNLuHS9foOfRGtlFyhYH7EIBxM9aiSGpF6MUNL10egUpGUdJmLN6sIC/TEQCHVqCaV6NDbxZLw0WF8FVdB1uUkwl4YiEzf4cHsoCPVA6EJf283DsWcZsGkfoR4m7N2RxZ5RU2PdUVEqrqqmojxQzHXlzPYpwvGjl1ITE6nVUtO+CUMjI2YGj6CI4lZGJuZ4Wimp1XXWFfGUN+u9PQO5ovDaTQUncHJ1hypwvRnx0yQyY2xMWnlg6gzJGQW4+5sSHp+nVabWkkB3GuWMKa/OzpAgKstcyYPw65bd5ArKS+vpLm5GQClrhI3956EDOrHkrmT2PjmJFzszPhw234+3fotjQYW9O3RCYVU+3Y0Ukrp7+lCp869OZVbz+HYWOqKEzFR1COXS1GpWrAwaOV6YSV7T5fQ9gQHJa3J982lr7Lm5WAedUdQQd39NgAMFdL2kklQQVRcLn/7x2aqq6rb9R2dHflk3XyGeNqJbGmDoIKCikYKSmtobmlDKpVw6Oxldu749on6d1gmDR0RyrsLwulurTmqAdTdFzh08QaffBlNdmaOVj1f/94snTORUb07Ie0gkGiyv2bXabZu3fPEfZ7o5Osf4MPAYD+6Olojk0ppbmnhdkkFiRcySUq4oLUG0wRHZ0cmjH2RkcG98Hcx0xopC6uaOZB4lY2f7xFVDI/Dn3qcNzQ2wsvLHWcnB0yM9WloaKa8ooqcnGvcyC/4zXaf31E8LXgmSYlOvsYGunR1sv0zfPlNyL91l5p69SpDRKqmvom0nII/yqffBc/k9ntO6mmBxoJ2SLAX8yYNwdHOkpdHBnMy8eHxw1BPycmvViGXy1g4ZRiHYi+p9f1s1V/x6OZIYlouK2ePxc+jC8kZ19rlzvZWHPviLXQkOiyZNpIDp1JETo0Y0IcZ40I4c+FHkezQ5uX4enRmbsRgpo4eQEbeLcoqatR0NN77fbR8Gl7jliMIAs4OVmqyusZmZFIpB89c5Fi8+Lh/LjWbj1dMIyXzOldvFLU/mD3AzTtlKJUytn9/hkWvDEci0UEQ1PO/n2cXxoT6serTb1Gp1GVLInfh1cMJZ3srpqzYhFIuviMRbT+JRIJcJm1/dLtZVCbqpELFxCEBRC6ZLBoUYMVH+9i2do7ae9MvoZTLmT0xjPOXrooIWZgaUVpRQ17BHf4yPEjUN7+wpP13bV0j5ZU1Ih0RKUEQ1BzVVWi+Lfo+5gKzV2/VKLtXVcuiyF2sXxihUd7c0sL2708zb/1XItnciDAampqJTcnmjanDNfZ/HDQGim3RZ/jkremMDfNny5rZajJDPSWWpkb8c9Ek9ry/kN49ndXkPu6dCfDuxvH4dHYeOCdaCWd7KyxNjfBx7ywa18HaDD+PrkQdjGPzvhOYmxgS1NtVpPeCrxsu9lbo6yo1ktJa0EokEkwM9ais6fiS43GQSCQa349/T2gN6YIg/N+EHtj5o/FM5qnnpJ4W/Ber6+u0yAN0ZAAAAABJRU5ErkJggg==" class="navbar-logo" />
 </span>
@@ -5637,6 +5368,12 @@ font-weight: 500;
   <span class="navbar-author">
         </span>
 </span>
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
 </div>
 <div id="navbar" class="navbar-collapse collapse">
@@ -5854,11 +5591,13 @@ var FlexDashboard = (function () {
         for (var j = 0; j<item.items.length; j++) {
           var subItem = item.items[j];
           var li = $('<li></li>');
-          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          var a = navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target);
+          a.removeClass("nav-link").addClass("dropdown-item");
+          li.append(a);
           menu.append(li);
         }
       } else {
-        var li = $('<li></li>');
+        var li = $('<li class="nav-item"></li>');
         li.append(navbarLink(item.icon, item.title, item.href, item.target));
         container.append(li);
       }
@@ -5873,7 +5612,7 @@ var FlexDashboard = (function () {
     if (existingMenu.length > 0) {
       return existingMenu.children('ul');
     } else {
-      var li = $('<li></li>');
+      var li = $('<li class="nav-item"></li>');
       if (id)
         li.attr('id', id);
       li.addClass('dropdown');
@@ -5886,6 +5625,7 @@ var FlexDashboard = (function () {
       var a = navbarLink(icon, title, "#");
       a.addClass('dropdown-toggle');
       a.attr('data-toggle', 'dropdown');
+      a.attr('data-bs-toggle', 'dropdown');
       a.attr('role', 'button');
       a.attr('aria-expanded', 'false');
       li.append(a);
@@ -5903,6 +5643,7 @@ var FlexDashboard = (function () {
     var id = page.attr('id');
     var icon = page.attr('data-icon');
     var navmenu = page.attr('data-navmenu');
+    var navmenuIcon = page.attr('data-navmenu-icon');
 
     // get hidden state (transfer this to navbar)
     var hidden = page.hasClass('hidden');
@@ -5921,8 +5662,6 @@ var FlexDashboard = (function () {
 
     // add the tab-pane class to the wrapper
     wrapper.addClass('tab-pane');
-    if (active)
-      wrapper.addClass('active');
 
     // get a reference to the h1, discover its inner contens, then detach it
     var h1 = wrapper.find('h1').first();
@@ -5933,17 +5672,24 @@ var FlexDashboard = (function () {
     var li = $('<li></li>');
     var a = navbarLink(icon, title, '#' + id);
     a.attr('data-toggle', 'tab');
+    a.attr('data-bs-toggle', 'tab');
     li.append(a);
 
     // add it to the navbar (or navbar menu if specified)
     var container = $('ul.navbar-left');
     if (navmenu) {
       var menuId = navmenu.replace(/\s+/g, '');
-      var menu = navbarMenu(menuId, null, navmenu, container);
+      var menu = navbarMenu(menuId, navmenuIcon, navmenu, container);
+      li.find("> a").removeClass("nav-link").addClass("dropdown-item");
       menu.append(li);
     } else {
+      li.addClass("nav-item")
       container.append(li);
     }
+
+    // mark active tab and corresponding nav menu item
+    if (active)
+      $(a).tab("show");
 
     // hide it if requested
     if (hidden)
@@ -5952,7 +5698,7 @@ var FlexDashboard = (function () {
 
   function navbarLink(icon, title, href, target) {
 
-    var a = $('<a></a>');
+    var a = $('<a class="nav-link"></a>');
     if (icon) {
 
       // get the name of the icon set and icon
@@ -6009,8 +5755,7 @@ var FlexDashboard = (function () {
 
      var serviceLinks = {
       "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
-      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
-      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(location.href),
       "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
       "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
     };
@@ -6627,7 +6372,8 @@ var FlexDashboard = (function () {
 
     // check for fade option
     var fade = tabset.hasClass("tabset-fade");
-    var navClass = "nav-tabs";
+    var pills = tabset.hasClass("tabset-pills");
+    var navClass = pills ? "nav-pills" : "nav-tabs";
 
     // determine the heading level of the tabset and tabs
     var match = tabset.attr('class').match(/level(\d) /);
@@ -6648,6 +6394,7 @@ var FlexDashboard = (function () {
     $(tabs[0]).before(tabContent);
 
     // build the tabset
+    var activeTab = 0;
     tabs.each(function(i) {
 
       // get the tab div
@@ -6655,6 +6402,10 @@ var FlexDashboard = (function () {
 
       // get the id then sanitize it for use with bootstrap tabs
       var id = tab.attr('id');
+
+      // see if this is marked as the active tab
+      if (tab.hasClass('active'))
+        activeTab = i;
 
       // sanitize the id for use with bootstrap tabs
       id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
@@ -6665,14 +6416,12 @@ var FlexDashboard = (function () {
       var headingDom = heading.contents();
 
       // build and append the tab list item
-      var a = $('<a role="tab" data-toggle="tab"></a>');
+      var a = $('<a role="tab" data-toggle="tab" data-bs-toggle="tab" class="nav-link"></a>');
       a.append(headingDom);
       a.attr('href', '#' + id);
       a.attr('aria-controls', id);
-      var li = $('<li role="presentation"></li>');
+      var li = $('<li role="presentation" class="nav-item"></li>');
       li.append(a);
-      if (i === 0)
-        li.attr('class', 'active');
       tabList.append(li);
 
       // set it's attributes
@@ -6682,15 +6431,17 @@ var FlexDashboard = (function () {
       tab.addClass('no-title');
       if (fade)
         tab.addClass('fade');
-      if (i === 0) {
-        tab.addClass('active');
-        if (fade)
-          tab.addClass('in');
-      }
 
       // move it into the tab content div
       tab.detach().appendTo(tabContent);
     });
+
+    // set active tab
+    $(tabList.children()[activeTab]).tab("show");
+    var active = $(tabContent.children('div.section')[activeTab]);
+    active.addClass('active');
+    if (fade)
+      active.addClass('in');
 
     // add nav-tabs-custom
     tabset.addClass('nav-tabs-custom');
@@ -6866,9 +6617,10 @@ var FlexDashboard = (function () {
 
     // restore tab/page from bookmark
     var hash = window.decodeURIComponent(window.location.hash);
-    if (hash.length > 0)
+    if (hash.length > 0) {
+      // Update the tab without .showPage() so that we don't change page history
       $('ul.nav a[href="' + hash + '"]').tab('show');
-    FlexDashboardUtils.manageActiveNavbarMenu();
+    }
 
     // navigate to a tab when the history changes
     window.addEventListener("popstate", function(e) {
@@ -6877,9 +6629,9 @@ var FlexDashboard = (function () {
       if (activeTab.length) {
         activeTab.tab('show');
       } else {
+        // returning to the base page URL without a hash activates first tab
         $('ul.nav a:first').tab('show');
       }
-      FlexDashboardUtils.manageActiveNavbarMenu();
     });
 
     // add a hash to the URL when the user clicks on a tab/page
@@ -6932,111 +6684,11 @@ var FlexDashboard = (function () {
     }
   }
 
-
-  // get theme color
-  var themeColors = {
-    bootstrap: {
-      primary: "rgba(51, 122, 183, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cerulean: {
-      primary: "rgb(47, 164, 231)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    journal: {
-      primary: "rgba(235, 104, 100, 0.70)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    flatly: {
-      primary: "rgba(44, 62, 80, 0.70)",
-      info: "rgba(52, 152, 219, 0.70)",
-      success: "rgba(24, 188, 156, 0.70)",
-      warning: "rgba(243, 156, 18, 0.70)",
-      danger: "rgba(231, 76, 60, 0.70)"
-    },
-    readable: {
-      primary: "rgba(69, 130, 236, 0.4)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    spacelab: {
-      primary: "rgba(68, 110, 155, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    united: {
-      primary: "rgba(221, 72, 20, 0.30)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    cosmo: {
-      primary: "rgba(39, 128, 227, 0.7)",
-      info: "rgba(153, 84, 187, 0.7)",
-      success: "rgba(63, 182, 24, 0.7)",
-      warning: "rgba(255, 117, 24, 0.7)",
-      danger: "rgba(255, 0, 57, 0.7)"
-    },
-    lumen: {
-      primary: "rgba(21, 140, 186, 0.70)",
-      info: "rgba(117, 202, 235, 0.90)",
-      success: "rgba(40, 182, 44, 0.70)",
-      warning: "rgba(255, 133, 27, 0.70)",
-      danger: "rgba(255, 65, 54, 0.70)"
-    },
-    paper: {
-      primary: "rgba(33, 150, 243, 0.35)",
-      info: "rgb(225, 190, 231)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(255, 224, 178)",
-      danger: "rgb(249, 189, 187)"
-    },
-    sandstone: {
-      primary: "rgba(50, 93, 136, 0.3)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    simplex: {
-      primary: "rgba(217, 35, 15, 0.25)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    },
-    yeti: {
-      primary: "rgba(0, 140, 186, 0.298039)",
-      info: "rgb(217, 237, 247)",
-      success: "rgb(223, 240, 216)",
-      warning: "rgb(252, 248, 227)",
-      danger: "rgb(242, 222, 222)"
-    }
-  }
-  function themeColor(color) {
-    return themeColors[_options.theme][color];
-  }
-
   FlexDashboard.prototype = {
     constructor: FlexDashboard,
     init: init,
     isMobilePhone: isMobilePhone,
-    isFillPage: isFillPage,
-    themeColor: themeColor
+    isFillPage: isFillPage
   };
 
   return FlexDashboard;
@@ -7063,7 +6715,6 @@ window.FlexDashboardUtils = {
     setTimeout(function() {
         window.scrollTo(0, 0);
     }, 10);
-    this.manageActiveNavbarMenu();
   },
   showPage: function(href) {
     $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
@@ -7091,17 +6742,6 @@ window.FlexDashboardUtils = {
       return url.substring(hashLoc);
     else
       return "";
-  },
-  manageActiveNavbarMenu: function () {
-    // remove active from anyone currently active
-    $('.navbar ul.nav').find('li').removeClass('active');
-    // find the active tab
-    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
-    if (activeTab.length > 0) {
-      var tabId = activeTab.attr('id');
-      if (tabId)
-        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
-    }
   }
 };
 
@@ -7182,16 +6822,6 @@ window.FlexDashboardComponents.push({
 window.FlexDashboardComponents.push({
   find: function(container) {
     return container.children('div[class^="shiny-"]');
-  }
-});
-
-// datatables
-window.FlexDashboardComponents.push({
-  find: function(container) {
-    return container.find('.datatables');
-  },
-  flex: function(fillPage) {
-    return fillPage;
   }
 });
 
@@ -7363,21 +6993,6 @@ window.FlexDashboardComponents.push({
     if (chartIcon)
       setIcon(chartIcon);
 
-    // set color based on data-background if necessary
-    var dataBackground = valueBox.attr('data-background');
-    if (dataBackground)
-      valueBox.css('background-color', bgColor);
-    else {
-      // default to bg-primary if no other background is specified
-      if (!valueBox.hasClass('bg-primary') &&
-          !valueBox.hasClass('bg-info') &&
-          !valueBox.hasClass('bg-warning') &&
-          !valueBox.hasClass('bg-success') &&
-          !valueBox.hasClass('bg-danger')) {
-        valueBox.addClass('bg-primary');
-      }
-    }
-
     // handle data attributes in valueOutputSpan
     function handleValueOutput(valueOutput) {
 
@@ -7391,19 +7006,30 @@ window.FlexDashboardComponents.push({
       if (dataIcon)
         setIcon(dataIcon);
 
-      // color
+      // If valueBox(color=) was an accent color, this attr should
+      // be populated with the accent color and the relevant CSS comes
+      // in through HTML dependencies
+      var dataColorAccent = valueOutput.attr('data-color-accent');
+      var valueBoxClasses = "value-box-" + (["primary", "info", "danger", "warning", "success"].join(" value-box-"));
+      if (dataColorAccent) {
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.addClass('value-box-' + dataColorAccent);
+      }
+
+      // If valueBox(color=) was a CSS color, these other data-color-*
+      // attrs will be populated
       var dataColor = valueOutput.attr('data-color');
       if (dataColor) {
-        if (dataColor.indexOf('bg-') === 0) {
-          valueBox.css('background-color', '');
-          if (!valueBox.hasClass(dataColor)) {
-             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-             valueBox.addClass(dataColor);
-          }
-        } else {
-          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
-          valueBox.css('background-color', dataColor);
-        }
+        valueBox.removeClass(valueBoxClasses);
+        valueBox.css('background-color', dataColor);
+      }
+      var dataColorText = valueOutput.attr('data-color-text');
+      if (dataColorText) {
+        valueBox.find(".inner").css('color', dataColorText);
+      }
+      var dataColorIcon = valueOutput.attr('data-color-icon');
+      if (dataColorIcon) {
+        valueBox.find(".icon").css('color', dataColorIcon);
       }
 
       // url
@@ -7459,8 +7085,8 @@ alejar</em>)</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2d7478c5626328ca822b" style="width:576px;height:460.8px;"></div>
-<script type="application/json" data-for="htmlwidget-2d7478c5626328ca822b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[-51.6169,-51.6169,-50.8,-49.5951667,-48.7508333,-45.6883333,-34.9088865,-34.9088865,-34.9088865,-34.9088865,-45.7167,-47.5666667,-50.0247276,-34.9204948,-51.03254],[-70.66666667,-70.66666667,-70.66670000000001,-72.0575,-70.24861111,-70.99027778,-57.9353316,-57.9353316,-57.9353316,-57.9353316,-68.91670000000001,-65.8166667,-68.5243815,-57.9535657,-71.295024],10,null,"Aonekko ‘a‘ien",{"interactive":true,"className":"","stroke":true,"color":"#a6cee3","weight":5,"opacity":0.5,"fill":true,"fillColor":"#a6cee3","fillOpacity":0.5},null,null,["Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: Jose Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: (Enrique) Yaknek Chapalala<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Río Gallegos<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: (Enrique) Yaknek Chapalala<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Río Gallegos<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: (Lorenzo) Yebes, J. Manchao, (José) Roldán <p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Camusu Aike<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: Síska (Teresa Pascual)<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Vega Piaget<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: Camilo (Yalo), Caip (Juan Kaiper)<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Gobernador Gregores <p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: Mercedes Copolque<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: El Chalía<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Ahúnikenk<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Taününuün / Manuela Casimiro <p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1903<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Aönükün'k<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Gisgo / Casimiro<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1905<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Tehuelche. Phonogr.<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Gisgo / Casimiro, Awaik / Bonifacio<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1905<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Tehuelche. Phonogr.<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Gisgo / Casimiro, Awaik / Bonifacio<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1905<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Hompen<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: ¿Área del Lago Colhué Huapi?<p><\/p>Año: 1898-1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Tabla Castellano/Tehuelche-Ahonekenke ó Tsoneca<p><\/p>Recopilador/a: Carlos Burmeister y Roberto Rubens<p><\/p>Coproductor/es: Joven tehuelche<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Cañadón Quemado<p><\/p>Año: 1891-1892<p><\/p>Agencia: Científica<p><\/p>","Documento: Tabla Castellano/Tehuelche-Ahonekenke ó Tsoneca<p><\/p>Recopilador/a: Carlos Burmeister y Roberto Rubens<p><\/p>Coproductor/es: Joven tehuelche<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Puerto Santa Cruz<p><\/p>Año: 1891-1892<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Castellano, Tehuelche, Ahonekenke ó Tsoneca<p><\/p>Recopilador/a: Samuel Lafone Quevedo<p><\/p>Coproductor/es: Kankel<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1896<p><\/p>Agencia: Científica<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Chumjaluwün / Mulato<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Fuentes del Coyle<p><\/p>Año: 1894-1904<p><\/p>Agencia: Misionera<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-42.9014,-34.9088865,-34.9088865,-34.5988036,-35.0002899,-40.85,-45.2735141,-36.872222,-37.81833333,-38.0696162,-44.45,-45.0391479],[-71.1581,-57.9353316,-57.9353316,-58.4183609,-61.0384266,-65.84999999999999,-70.1226339,-69.76000000000001,-71.09638889,-70.61102200000001,-70.75,-70.8274789],10,null,"Mapuzugun",{"interactive":true,"className":"","stroke":true,"color":"#1f78b4","weight":5,"opacity":0.5,"fill":true,"fillColor":"#1f78b4","fillOpacity":0.5},null,null,["Documento: Libretas Flora y Fauna <p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: José Manquian, Julia Nahuelpan, Antonio Santul, Andres Inakayal<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Boquete Nahuelpan<p><\/p>Año: 1936<p><\/p>Agencia: Científica<p><\/p>","Documento: Diálogos en dialecto uaidsüfche argentino<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Nahuelpi / Antonio González<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: La Plata<p><\/p>Año: 1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Lemudeu, Nahuelpi / Antonio González, Kolüngür /Marcelino Rodríguez, Rosas, Katrülaf /Juan Castro, Regina, Juan Salva Marinau, Tomás Püchuán, Rainau /Antonio Coron, Francisco Antepi, Juan Coñuel, Juan José Catriel, Ignacio Silva<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: La Plata<p><\/p>Año: 1899-1926<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Kumün, Miguel Ñancuche Nawelkir, Manuel Namuncura,  Rainau (Antonio Coron), Calixto Tapalquen<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Buenos Aires<p><\/p>Año: 1906-1917<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Nekulguar / Fermín Avendaño, Martín Kolikeo, Kuminau, Rainau / Antonio Coron, Huaikinau / Antonio Coron padre, Külenñam<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Epu Lafken / Los Toldos<p><\/p>Año: 1920<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Juan Millán<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Aguada Cecilio <p><\/p>Año: 1915<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Painelef, Millagun, Manquel<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Río Senguer<p><\/p>Año: 1900 circa <p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimia araucana<p><\/p>Recopilador/a: Pablo Groeber<p><\/p>Coproductor/es: Juan Antonio Barro<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Domuyo<p><\/p>Año: 1913<p><\/p>Agencia: Estatal<p><\/p>","Documento: Toponimia araucana<p><\/p>Recopilador/a: Pablo Groeber<p><\/p>Coproductor/es: Enrique Millain Kurikal,  Francisco Millain Kurikal, Paulino Gatica<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Copahue, Caviahue<p><\/p>Año: 1920-1921<p><\/p>Agencia: Estatal<p><\/p>","Documento: Toponimia araucana<p><\/p>Recopilador/a: Pablo Groeber<p><\/p>Coproductor/es: Enrique Millain Kurikal, Francisco Millain Kurikal<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Loncopué<p><\/p>Año: 1920-1921<p><\/p>Agencia: Estatal<p><\/p>","Documento: <p><\/p>Recopilador/a: Antonio Gargaglione<p><\/p>Coproductor/es: Agapito Sánchez, Emilia Culalt, “señora de Truquel”, J. L. Millán<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Shaman / Esquel<p><\/p>Año: 1931-1932-1934<p><\/p>Agencia: Territoriana<p><\/p>","Documento: <p><\/p>Recopilador/a: Antonio Gargaglione<p><\/p>Coproductor/es: Agapito Sánchez, Emilia Culalt, “señora de Truquel”, J. L. Millán<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Alto Río Senguer<p><\/p>Año: 1931-1932-1934<p><\/p>Agencia: Territoriana<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-42.76030077,-42.5208849,-43.75,-42.7593703,-42.76030077,-44.94464,-34.5988036,-40.679988,-40.9,-40.4667,-40.2,-43.4833,-34.9204948,-40.4555556,-40.4299509,-41.803056],[-68.87700635,-68.2849425,-70.83333333,-68.8661386,-68.87700635,-70.09244,-58.4183609,-66.165471,-67.4333,-63.7833,-64.2,-70.8,-57.9535657,-63.78583333,-63.6742168,-68.00666699999999],10,null,"Günün a yajüch",{"interactive":true,"className":"","stroke":true,"color":"#b2df8a","weight":5,"opacity":0.5,"fill":true,"fillColor":"#b2df8a","fillOpacity":0.5},null,null,["Documento: Vocabulario Gününa <p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Rutukar (Teresa Pitchalao), Zenón Gomez, Paillakan (Bartolo Pitchalao),Trruúlmani (Agustina Moreira), Tegui-tsüm, Nawelkir (Adolfo Nahuelquir Chiquichano), Chipi (Miguel Kual), Shayemilla<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Cañadón Yírsguichin; Lefiniyeu / Yala Laubat <p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gününa <p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Nawelkir / Adolfo Nahuelquir Chiquichano, Trruúlmani /Agustina Moreira, Teguîtsūm / Teresa Moreira), Rutukar (Teresa Pūtchalau), Pinoukash (Manuela Velázquez), Kellūktsūm (Catalina Collhuala), Peinchay (Rosaria Collhuala), Chakai-chüm (Ana Kual), Chaguchachiíttsūm (Juana Kual), Balhta (Carmen Collhuala), Kachanáktsūm (Rosa Chagayo), Konáchk (Claudio Chagayo), Kalakapa (José María Kual), Shuáma (Bartolomé Kual), Kānoen (Colin Kual), Mankefish (Arturo Kual), Kayupan (Miguel Kual), Chipi (Miguel Kual), Huanketrripay (Juan Velásquez), Popechálchm (Carolina Velásquez), Chakeleútrr (Una mujer muy anciana con otro nombre), Eputrripay (José Pūtchalau), Ñamkurray (Angela Pūtchalau), Muyekel (Esteban Pūtchalau), Paíllakan (Bartolomé Pūtchalau), Kayumañ (Marcelino Collhuala), Santiago Collhuala, Kilkil ágūēs (Casilda Telach), Kats-isla (Jacinta Chagayo), Ñaash (una mujer Chagayo), Llankashay (una mujer Chagayo), Ayérshu (Juan Chagayo), Maiká (Francisco Chagayo), Shayímilla (José María Zacarías ), Pankematrra (Kumainil)<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Gan Gan<p><\/p>Año: 1946<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Trruúlmani /Agustina Moreira, Nawelkir / Adolfo Nahuelquir Chiquichano, Tegui-tsüm, Chipi / Migue Kual, Kilkil-ágūs / Casilda Telach<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Languiñeo<p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Trruúlmani / Agustina Moreira, Nawelkir / Adolfo Nahuelquir Chiquichano<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Yala Laubat<p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Paillakan / Bartolo Pitchalao, Zenón Gómez <p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Cañadón Yírsguichin; Lefiniyeu / Yala Laubat <p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Kilkil-ágūs / Casilda Telach<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Valle de Genoa<p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Nawelkir / Adolfo Nahuelquir Chiquichano,  Zenón Gómez<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Buenos Aires<p><\/p>Año: 1937<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Isidora Real, Atsaktükáokmüll / Rosario Cantero, Carmen Pitchalao<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Valcheta<p><\/p>Año: 1915<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Tshilkau / Teresa<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Tapiluque<p><\/p>Año: 1915<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Millaluan / Bartolo Alfaro<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Primera Angostura <p><\/p>Año: 1916<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Carmen Treiman<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Colonia Frías<p><\/p>Año: 1916<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Ghennaken<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: ¿Tecka?<p><\/p>Año: 1898-1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche Guennaken<p><\/p>Recopilador/a: Samuel Lafone Quevedo<p><\/p>Coproductor/es: Manzanero<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: La Plata<p><\/p>Año: 1896<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gennaken<p><\/p>Recopilador/a: Francisco P. Moreno<p><\/p>Coproductor/es: Canviefel<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Primera Angostura <p><\/p>Año: 1875<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gennaken<p><\/p>Recopilador/a: Francisco P. Moreno<p><\/p>Coproductor/es: Sinchel, y su sobrino Francisco Hernández<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Guardia Mitre<p><\/p>Año: 1875<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gennaken<p><\/p>Recopilador/a: Francisco P. Moreno<p><\/p>Coproductor/es: Puitchualao y su hermano mayor capitán Chico<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Yaquelcaguay,  Yamnago/ Meseta de Somuncura<p><\/p>Año: 1879<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[-45.493889,-68.757222,10,null,"Teushen",{"interactive":true,"className":"","stroke":true,"color":"#33a02c","weight":5,"opacity":0.5,"fill":true,"fillColor":"#33a02c","fillOpacity":0.5},null,null,["Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Hompen<p><\/p>Lengua: Teushen<p><\/p>Locación: Entre los Lagos Colhue-Huapi y Musters<p><\/p>Año: 1898-1901<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-34.5988036,-53.7833,-53.9167,-53.724725,-54.0858917,-54.02972558,-54.5108893,-54.0858917,-54.0858917,-54.0858917,-54.837209,-54.8718719,-54.994174,-54.869464,-52.969738,-54.0858917,-54.6467114,-54.0858917,-54.8019121,-53.9167,-54.0858917,-53.327987,-54.8718719],[-58.4183609,-67.7,-70.75,-67.79892778,-67.65354170000001,-67.6520651,-67.1929895,-67.65354170000001,-67.65354170000001,-67.65354170000001,-67.46222899999999,-67.4210587,-66.334242,-67.277424,-70.107473,-67.65354170000001,-65.2515238,-67.65354170000001,-68.3029511,-70.75,-67.65354170000001,-69.790548,-67.328587],10,null,"Selk'nam",{"interactive":true,"className":"","stroke":true,"color":"#fb9a99","weight":5,"opacity":0.5,"fill":true,"fillColor":"#fb9a99","fillOpacity":0.5},null,null,["Documento: Vocabulario Oona<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Choskiái, Kiótemén, una mujer selk'nam, Navarro<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Buenos Aires<p><\/p>Año: 1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Oona<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Inasuei / Federico<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Río Grande<p><\/p>Año: 1902<p><\/p>Agencia: Científica<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Menelke / Pedro Gama, «Eliseo»<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Isla Dawson<p><\/p>Año: 1888-1911<p><\/p>Agencia: Misionera<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Menelke / Pedro Gama, «Eliseo»<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Río Grande<p><\/p>Año: 1911-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: Diccionario Indio Ona-Español<p><\/p>Recopilador/a: Juan Zenone<p><\/p>Coproductor/es: Menelke / Pedro Gama, Mighens / Juan José Mata, Taha / José Simón del Frío, Kalapacta, «Isabel Gama», José Esteban Chabel del Monte, Koipar / María Patrocinio, Kooc‘n  / María Cecilia Gracia,  Taalchek /María Barbarita, O‘kienster  / María Luisa,  Alitol ó Noutl /María Ana,  Kuelgueta / Carmen del Frío, Amstuntaa / María Teresa, Ktaikiusak / Cleto, Kaasa /José Agustin Lamar, Hemthal / José Antonio Chico, Paschol / José Tomás Ven , Chené-hayayá /José Esteban Arco, Knoski / José Mateo del Frío, Koyenkosfor /José Bautista Roca, Noste‘n /José Simeon Sunday, Kan-maar /José Benito Sunday, Chéssñ /José Santiago, Kotiss /José Lorenzo Casa, Yaask /Zacarías, Kfal-lél / José Joaquín Tierra, Checherr / José Matías, Hestom / José Felipe del Sur, Toki-noter /José Lino, Kauchikol / Judas, Eklïol /José Cipriano<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1896<p><\/p>Agencia: Misionera<p><\/p>","Documento: <p><\/p>Recopilador/a: Juan Zenone<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Shaikush / Río del Fuego; Shilan / Cabo Santa Inés<p><\/p>Año: 1906-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: <p><\/p>Recopilador/a: Juan Zenone<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Tolhuin<p><\/p>Año: 1913-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: Colección de Palabras Onas<p><\/p>Recopilador/a: Fortunato Griffa<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1896-1901<p><\/p>Agencia: Misionera<p><\/p>","Documento: Cuaderno de Palabras Onas<p><\/p>Recopilador/a: Rosa Gutiérrez<p><\/p>Coproductor/es: «Isabel Gama», O‘kienster /María Luisa, niños y niñas<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1897<p><\/p>Agencia: Misionera<p><\/p>","Documento: <p><\/p>Recopilador/a: José María Beauvoir<p><\/p>Coproductor/es: José Luis Miguel / Kalapacta, Tomás Ven Paschol<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / San Sebastián y Kin / Río Grande<p><\/p>Año: 1892-1908<p><\/p>Agencia: Misionera<p><\/p>","Documento: Vocabulary and sentences derived from Ellis phonetic system but arranged to suit the Ona<p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Halimink y otras personas<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Camino desde Ukatush / Harberton a Najmish <p><\/p>Año: 1894-1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: Vocabulario y frases en idioma ona derivados del sistema fonético Ellis, 1896<p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Kiliutah, Minkiyolh, Kohpen, Kaushel, Kiyotimink, Halchic, Haäru, Keëlu<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Ukatush / Harberton<p><\/p>Año: 1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: Vocabulario y frases en idioma ona derivados del sistema fonético Ellis, 1896<p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Kiliutah, Minkiyolh, Kohpen, Kaushel, Kiyotimink, Halchic, Haäru, Keëlu <p><\/p>Lengua: Selk'nam<p><\/p>Locación: Hammacoia / Bahia Sloggett<p><\/p>Año: 1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: <p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Skriot / Capelo<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Lanushwaia / Cambaceres<p><\/p>Año: ca.1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: <p><\/p>Recopilador/a: Ramón Serrano Montaner<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Jowsken / Bahía Genta Grande<p><\/p>Año: 1879<p><\/p>Agencia: Estatal <p><\/p>","Documento: Pequeño vocabulario de la lengua de los onas de San Sebastián<p><\/p>Recopilador/a: Ramon Lista<p><\/p>Coproductor/es: <p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Bahía San Sebastian<p><\/p>Año: <p><\/p>Agencia: Estatal<p><\/p>","Documento: Vocabulario de la lengua de los Onas del Sud<p><\/p>Recopilador/a: Ramon Lista<p><\/p>Coproductor/es: Noshte, Kaukiolski<p><\/p>Lengua: Selk'nam<p><\/p>Locación: T‘eEjelz / Cabo San Pablo;  Làuwullukwaia /Bahia Thetis; Âcancheloaia / Caleta Falsa<p><\/p>Año: 1887<p><\/p>Agencia: Estatal<p><\/p>","Documento: Palabras exactas del idioma Aona<p><\/p>Recopilador/a: Polidoro Segers<p><\/p>Coproductor/es: Keppenau, Shutta, Kaukiolski, Kouaskol, Esseps<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Bahía San Sebastian hasta Cabo Peñas<p><\/p>Año: 1886-1887<p><\/p>Agencia: Estatal<p><\/p>","Documento: <p><\/p>Recopilador/a: Ferdinand Lahille<p><\/p>Coproductor/es: Czaciolp / Emilio, Ténénesk / Ventura, Tschorsquia /Tísico, Ailpo /Caninco<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Ukatush / Ushuaia<p><\/p>Año: 1896<p><\/p>Agencia: Científica<p><\/p>","Documento: Petit vocabularie de la langue Onas<p><\/p>Recopilador/a: Henryk Arctowski<p><\/p>Coproductor/es: Kalapacte o Karkemanen<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Isla Dawson<p><\/p>Año: 1897<p><\/p>Agencia: Científica<p><\/p>","Documento: Breve vocabulario del idioma de los Onas<p><\/p>Recopilador/a: Otto Nordenskjöld<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Bahía San Sebastian hasta cabo Peñas<p><\/p>Año: 1895<p><\/p>Agencia: Científica<p><\/p>","Documento: <p><\/p>Recopilador/a: Wenceslao Becerra<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Onaisin / Bahia Inútil <p><\/p>Año: 1898<p><\/p>Agencia: Estatal <p><\/p>","Documento: Vida intelectual: La mímica, el idioma, La escritura.<p><\/p>Recopilador/a: Carlos Gallardo<p><\/p>Coproductor/es: Pedro<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Ukatush / Harberton <p><\/p>Año: 1901-1902<p><\/p>Agencia: Estatal<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-53.9167,-53.724725,-54.856938,-54.699366],[-70.75,-67.79892778,-67.96932700000001,-69.588532],10,null,"Kawésqar",{"interactive":true,"className":"","stroke":true,"color":"#e31a1c","weight":5,"opacity":0.5,"fill":true,"fillColor":"#e31a1c","fillOpacity":0.5},null,null,["Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Kwiškotarelukčís / Brasito, Jáučeljalúkčís / Miguel, «Paolo Canalese», «María», Candelaria», «Miguel Bernabé Rúa», «Ramón Díaz», «Ángel Fabiani», «Silvestre Canales»<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Isla Dawson<p><\/p>Año: 1888-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Kwiškotarelukčís /Brasito, Jáučeljalúkčís / Miguel, «Paolo Canalese», «María», Candelaria», «Miguel Bernabé Rúa», «Ramón Díaz», «Ángel Fabiani», «Silvestre Canales»<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1888-1911<p><\/p>Agencia: Misionera<p><\/p>","Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Sahualkis<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Canal de Beagle<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Bánerko<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Caleta Darwin<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[-54.7474183,-69.57398070000001,10,null,"Haush",{"interactive":true,"className":"","stroke":true,"color":"#fdbf6f","weight":5,"opacity":0.5,"fill":true,"fillColor":"#fdbf6f","fillOpacity":0.5},null,null,["Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Aikamimink, Ârupin, Yaíachin, Paiwan<p><\/p>Lengua: Haush<p><\/p>Locación: Hammacoia / Bahia Sloggett<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-54.7474183,-54.8718719,-55.048056],[-69.57398070000001,-67.4210587,-68.149444],10,null,"Yagan",{"interactive":true,"className":"","stroke":true,"color":"#ff7f00","weight":5,"opacity":0.5,"fill":true,"fillColor":"#ff7f00","fillOpacity":0.5},null,null,["Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Paiwan<p><\/p>Lengua: Yagan<p><\/p>Locación: Hammacoia / Bahia Sloggett<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Paiwan, John Ferness, Kremmer, Wallaæengi, Ukokoengi, Pallaláia, Iammimáatatoengi, Tawakanaxak, Pinang, Tennagaia, Kùttáiawéllis, Iipoenciamma, Henry Lory, Ielampoie, Simaciwellis, Akumátu, Tescapalawallis, Aiakapíia, Gamela<p><\/p>Lengua: Yagan<p><\/p>Locación: Ukatush / Harberton <p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Yamana-Castellano<p><\/p>Recopilador/a: R. Rau<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Yagan<p><\/p>Locación: Caleta Wulaia<p><\/p>Año: ca.1862<p><\/p>Agencia: Misionera<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[-37.3687938,-64.59986720000001,10,null,"Rankül",{"interactive":true,"className":"","stroke":true,"color":"#ff7f00","weight":5,"opacity":0.5,"fill":true,"fillColor":"#ff7f00","fillOpacity":0.5},null,null,["Documento: Vocabulario Rankelche<p><\/p>Recopilador/a: Vujcec Frich<p><\/p>Coproductor/es: Ketrewitu /Mariano Rosas<p><\/p>Lengua: Rankül<p><\/p>Locación: General Acha<p><\/p>Año: 1909<p><\/p>Agencia: Científica <p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["Aonekko ‘a‘ien","Mapuzugun","Günün a yajüch","Teushen","Selk'nam","Kawésqar","Haush","Yagan","Rankül"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]}],"limits":{"lat":[-55.048056,-34.5988036],"lng":[-72.0575,-57.9353316]}},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n        function() {\n            $('.leaflet-control-layers-overlays').prepend('<label style=\"text-align:center\">Escenas de documentación<\/label>');\n        }\n    ).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-11e919afa6f90d7f8a7a" style="width:576px;height:460.8px;"></div>
+<script type="application/json" data-for="htmlwidget-11e919afa6f90d7f8a7a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[-51.6169,-51.6169,-50.8,-49.5951667,-48.7508333,-45.6883333,-34.9088865,-34.9088865,-34.9088865,-34.9088865,-45.7167,-47.5666667,-50.0247276,-34.9204948,-51.03254],[-70.66666667,-70.66666667,-70.66670000000001,-72.0575,-70.24861111,-70.99027778,-57.9353316,-57.9353316,-57.9353316,-57.9353316,-68.91670000000001,-65.8166667,-68.5243815,-57.9535657,-71.295024],10,null,"Aonekko ‘a‘ien",{"interactive":true,"className":"","stroke":true,"color":"#a6cee3","weight":5,"opacity":0.5,"fill":true,"fillColor":"#a6cee3","fillOpacity":0.5},null,null,["Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: Jose Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: (Enrique) Yaknek Chapalala<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Río Gallegos<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: (Enrique) Yaknek Chapalala<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Río Gallegos<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: (Lorenzo) Yebes, J. Manchao, (José) Roldán <p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Camusu Aike<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: Síska (Teresa Pascual)<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Vega Piaget<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: Camilo (Yalo), Caip (Juan Kaiper)<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Gobernador Gregores <p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocablos y frases de la lengua Tehuelche<p><\/p>Recopilador/a: José Imbelloni y Marcelo Bórmida<p><\/p>Coproductor/es: Mercedes Copolque<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: El Chalía<p><\/p>Año: 1949<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Ahúnikenk<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Taününuün / Manuela Casimiro <p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1903<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Aönükün'k<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Gisgo / Casimiro<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1905<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Tehuelche. Phonogr.<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Gisgo / Casimiro, Awaik / Bonifacio<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1905<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Tehuelche. Phonogr.<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Gisgo / Casimiro, Awaik / Bonifacio<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1905<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Hompen<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: ¿Área del Lago Colhué Huapi?<p><\/p>Año: 1898-1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Tabla Castellano/Tehuelche-Ahonekenke ó Tsoneca<p><\/p>Recopilador/a: Carlos Burmeister y Roberto Rubens<p><\/p>Coproductor/es: Joven tehuelche<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Cañadón Quemado<p><\/p>Año: 1891-1892<p><\/p>Agencia: Científica<p><\/p>","Documento: Tabla Castellano/Tehuelche-Ahonekenke ó Tsoneca<p><\/p>Recopilador/a: Carlos Burmeister y Roberto Rubens<p><\/p>Coproductor/es: Joven tehuelche<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Puerto Santa Cruz<p><\/p>Año: 1891-1892<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Castellano, Tehuelche, Ahonekenke ó Tsoneca<p><\/p>Recopilador/a: Samuel Lafone Quevedo<p><\/p>Coproductor/es: Kankel<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: La Plata<p><\/p>Año: 1896<p><\/p>Agencia: Científica<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Chumjaluwün / Mulato<p><\/p>Lengua: Aonekko ‘a‘ien<p><\/p>Locación: Fuentes del Coyle<p><\/p>Año: 1894-1904<p><\/p>Agencia: Misionera<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-42.9014,-34.9088865,-34.9088865,-34.5988036,-35.0002899,-40.85,-45.2735141,-36.872222,-37.81833333,-38.0696162,-44.45,-45.0391479],[-71.1581,-57.9353316,-57.9353316,-58.4183609,-61.0384266,-65.84999999999999,-70.1226339,-69.76000000000001,-71.09638889,-70.61102200000001,-70.75,-70.8274789],10,null,"Mapuzugun",{"interactive":true,"className":"","stroke":true,"color":"#1f78b4","weight":5,"opacity":0.5,"fill":true,"fillColor":"#1f78b4","fillOpacity":0.5},null,null,["Documento: Libretas Flora y Fauna <p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: José Manquian, Julia Nahuelpan, Antonio Santul, Andres Inakayal<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Boquete Nahuelpan<p><\/p>Año: 1936<p><\/p>Agencia: Científica<p><\/p>","Documento: Diálogos en dialecto uaidsüfche argentino<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Nahuelpi / Antonio González<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: La Plata<p><\/p>Año: 1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Lemudeu, Nahuelpi / Antonio González, Kolüngür /Marcelino Rodríguez, Rosas, Katrülaf /Juan Castro, Regina, Juan Salva Marinau, Tomás Püchuán, Rainau /Antonio Coron, Francisco Antepi, Juan Coñuel, Juan José Catriel, Ignacio Silva<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: La Plata<p><\/p>Año: 1899-1926<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Kumün, Miguel Ñancuche Nawelkir, Manuel Namuncura,  Rainau (Antonio Coron), Calixto Tapalquen<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Buenos Aires<p><\/p>Año: 1906-1917<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Nekulguar / Fermín Avendaño, Martín Kolikeo, Kuminau, Rainau / Antonio Coron, Huaikinau / Antonio Coron padre, Külenñam<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Epu Lafken / Los Toldos<p><\/p>Año: 1920<p><\/p>Agencia: Científica<p><\/p>","Documento: Textos Araucanos<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Juan Millán<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Aguada Cecilio <p><\/p>Año: 1915<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Painelef, Millagun, Manquel<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Río Senguer<p><\/p>Año: 1900 circa <p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimia araucana<p><\/p>Recopilador/a: Pablo Groeber<p><\/p>Coproductor/es: Juan Antonio Barro<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Domuyo<p><\/p>Año: 1913<p><\/p>Agencia: Estatal<p><\/p>","Documento: Toponimia araucana<p><\/p>Recopilador/a: Pablo Groeber<p><\/p>Coproductor/es: Enrique Millain Kurikal,  Francisco Millain Kurikal, Paulino Gatica<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Copahue, Caviahue<p><\/p>Año: 1920-1921<p><\/p>Agencia: Estatal<p><\/p>","Documento: Toponimia araucana<p><\/p>Recopilador/a: Pablo Groeber<p><\/p>Coproductor/es: Enrique Millain Kurikal, Francisco Millain Kurikal<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Loncopué<p><\/p>Año: 1920-1921<p><\/p>Agencia: Estatal<p><\/p>","Documento: <p><\/p>Recopilador/a: Antonio Gargaglione<p><\/p>Coproductor/es: Agapito Sánchez, Emilia Culalt, “señora de Truquel”, J. L. Millán<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Shaman / Esquel<p><\/p>Año: 1931-1932-1934<p><\/p>Agencia: Territoriana<p><\/p>","Documento: <p><\/p>Recopilador/a: Antonio Gargaglione<p><\/p>Coproductor/es: Agapito Sánchez, Emilia Culalt, “señora de Truquel”, J. L. Millán<p><\/p>Lengua: Mapuzungun<p><\/p>Locación: Alto Río Senguer<p><\/p>Año: 1931-1932-1934<p><\/p>Agencia: Territoriana<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-42.76030077,-42.5208849,-43.75,-42.7593703,-42.76030077,-44.94464,-34.5988036,-40.679988,-40.9,-40.4667,-40.2,-43.4833,-34.9204948,-40.4555556,-40.4299509,-41.803056],[-68.87700635,-68.2849425,-70.83333333,-68.8661386,-68.87700635,-70.09244,-58.4183609,-66.165471,-67.4333,-63.7833,-64.2,-70.8,-57.9535657,-63.78583333,-63.6742168,-68.00666699999999],10,null,"Günün a yajüch",{"interactive":true,"className":"","stroke":true,"color":"#b2df8a","weight":5,"opacity":0.5,"fill":true,"fillColor":"#b2df8a","fillOpacity":0.5},null,null,["Documento: Vocabulario Gününa <p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Rutukar (Teresa Pitchalao), Zenón Gomez, Paillakan (Bartolo Pitchalao),Trruúlmani (Agustina Moreira), Tegui-tsüm, Nawelkir (Adolfo Nahuelquir Chiquichano), Chipi (Miguel Kual), Shayemilla<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Cañadón Yírsguichin; Lefiniyeu / Yala Laubat <p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gününa <p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Nawelkir / Adolfo Nahuelquir Chiquichano, Trruúlmani /Agustina Moreira, Teguîtsūm / Teresa Moreira), Rutukar (Teresa Pūtchalau), Pinoukash (Manuela Velázquez), Kellūktsūm (Catalina Collhuala), Peinchay (Rosaria Collhuala), Chakai-chüm (Ana Kual), Chaguchachiíttsūm (Juana Kual), Balhta (Carmen Collhuala), Kachanáktsūm (Rosa Chagayo), Konáchk (Claudio Chagayo), Kalakapa (José María Kual), Shuáma (Bartolomé Kual), Kānoen (Colin Kual), Mankefish (Arturo Kual), Kayupan (Miguel Kual), Chipi (Miguel Kual), Huanketrripay (Juan Velásquez), Popechálchm (Carolina Velásquez), Chakeleútrr (Una mujer muy anciana con otro nombre), Eputrripay (José Pūtchalau), Ñamkurray (Angela Pūtchalau), Muyekel (Esteban Pūtchalau), Paíllakan (Bartolomé Pūtchalau), Kayumañ (Marcelino Collhuala), Santiago Collhuala, Kilkil ágūēs (Casilda Telach), Kats-isla (Jacinta Chagayo), Ñaash (una mujer Chagayo), Llankashay (una mujer Chagayo), Ayérshu (Juan Chagayo), Maiká (Francisco Chagayo), Shayímilla (José María Zacarías ), Pankematrra (Kumainil)<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Gan Gan<p><\/p>Año: 1946<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Trruúlmani /Agustina Moreira, Nawelkir / Adolfo Nahuelquir Chiquichano, Tegui-tsüm, Chipi / Migue Kual, Kilkil-ágūs / Casilda Telach<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Languiñeo<p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Trruúlmani / Agustina Moreira, Nawelkir / Adolfo Nahuelquir Chiquichano<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Yala Laubat<p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Paillakan / Bartolo Pitchalao, Zenón Gómez <p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Cañadón Yírsguichin; Lefiniyeu / Yala Laubat <p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias Patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Kilkil-ágūs / Casilda Telach<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Valle de Genoa<p><\/p>Año: 1935 circa<p><\/p>Agencia: Científica<p><\/p>","Documento: Toponimias patagónicas<p><\/p>Recopilador/a: Tomas Harrington<p><\/p>Coproductor/es: Nawelkir / Adolfo Nahuelquir Chiquichano,  Zenón Gómez<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Buenos Aires<p><\/p>Año: 1937<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Isidora Real, Atsaktükáokmüll / Rosario Cantero, Carmen Pitchalao<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Valcheta<p><\/p>Año: 1915<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Tshilkau / Teresa<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Tapiluque<p><\/p>Año: 1915<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Millaluan / Bartolo Alfaro<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Primera Angostura <p><\/p>Año: 1916<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Carmen Treiman<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Colonia Frías<p><\/p>Año: 1916<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Ghennaken<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: ¿Tecka?<p><\/p>Año: 1898-1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Puelche Guennaken<p><\/p>Recopilador/a: Samuel Lafone Quevedo<p><\/p>Coproductor/es: Manzanero<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: La Plata<p><\/p>Año: 1896<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gennaken<p><\/p>Recopilador/a: Francisco P. Moreno<p><\/p>Coproductor/es: Canviefel<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Primera Angostura <p><\/p>Año: 1875<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gennaken<p><\/p>Recopilador/a: Francisco P. Moreno<p><\/p>Coproductor/es: Sinchel, y su sobrino Francisco Hernández<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Guardia Mitre<p><\/p>Año: 1875<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Gennaken<p><\/p>Recopilador/a: Francisco P. Moreno<p><\/p>Coproductor/es: Puitchualao y su hermano mayor capitán Chico<p><\/p>Lengua: Günün a yajüch<p><\/p>Locación: Yaquelcaguay,  Yamnago/ Meseta de Somuncura<p><\/p>Año: 1879<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[-45.493889,-68.757222,10,null,"Teushen",{"interactive":true,"className":"","stroke":true,"color":"#33a02c","weight":5,"opacity":0.5,"fill":true,"fillColor":"#33a02c","fillOpacity":0.5},null,null,["Documento: Vocabulario Tehuelche, Tehues, Pampa, Araucano<p><\/p>Recopilador/a: Carlos Ameghino<p><\/p>Coproductor/es: Hompen<p><\/p>Lengua: Teushen<p><\/p>Locación: Entre los Lagos Colhue-Huapi y Musters<p><\/p>Año: 1898-1901<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-34.5988036,-53.7833,-53.9167,-53.724725,-54.0858917,-54.02972558,-54.5108893,-54.0858917,-54.0858917,-54.0858917,-54.837209,-54.8718719,-54.994174,-54.869464,-52.969738,-54.0858917,-54.6467114,-54.0858917,-54.8019121,-53.9167,-54.0858917,-53.327987,-54.8718719],[-58.4183609,-67.7,-70.75,-67.79892778,-67.65354170000001,-67.6520651,-67.1929895,-67.65354170000001,-67.65354170000001,-67.65354170000001,-67.46222899999999,-67.4210587,-66.334242,-67.277424,-70.107473,-67.65354170000001,-65.2515238,-67.65354170000001,-68.3029511,-70.75,-67.65354170000001,-69.790548,-67.328587],10,null,"Selk'nam",{"interactive":true,"className":"","stroke":true,"color":"#fb9a99","weight":5,"opacity":0.5,"fill":true,"fillColor":"#fb9a99","fillOpacity":0.5},null,null,["Documento: Vocabulario Oona<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Choskiái, Kiótemén, una mujer selk'nam, Navarro<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Buenos Aires<p><\/p>Año: 1901<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Oona<p><\/p>Recopilador/a: Roberto Lehmann-Nitsche<p><\/p>Coproductor/es: Inasuei / Federico<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Río Grande<p><\/p>Año: 1902<p><\/p>Agencia: Científica<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Menelke / Pedro Gama, «Eliseo»<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Isla Dawson<p><\/p>Año: 1888-1911<p><\/p>Agencia: Misionera<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Menelke / Pedro Gama, «Eliseo»<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Río Grande<p><\/p>Año: 1911-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: Diccionario Indio Ona-Español<p><\/p>Recopilador/a: Juan Zenone<p><\/p>Coproductor/es: Menelke / Pedro Gama, Mighens / Juan José Mata, Taha / José Simón del Frío, Kalapacta, «Isabel Gama», José Esteban Chabel del Monte, Koipar / María Patrocinio, Kooc‘n  / María Cecilia Gracia,  Taalchek /María Barbarita, O‘kienster  / María Luisa,  Alitol ó Noutl /María Ana,  Kuelgueta / Carmen del Frío, Amstuntaa / María Teresa, Ktaikiusak / Cleto, Kaasa /José Agustin Lamar, Hemthal / José Antonio Chico, Paschol / José Tomás Ven , Chené-hayayá /José Esteban Arco, Knoski / José Mateo del Frío, Koyenkosfor /José Bautista Roca, Noste‘n /José Simeon Sunday, Kan-maar /José Benito Sunday, Chéssñ /José Santiago, Kotiss /José Lorenzo Casa, Yaask /Zacarías, Kfal-lél / José Joaquín Tierra, Checherr / José Matías, Hestom / José Felipe del Sur, Toki-noter /José Lino, Kauchikol / Judas, Eklïol /José Cipriano<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1896<p><\/p>Agencia: Misionera<p><\/p>","Documento: <p><\/p>Recopilador/a: Juan Zenone<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Shaikush / Río del Fuego; Shilan / Cabo Santa Inés<p><\/p>Año: 1906-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: <p><\/p>Recopilador/a: Juan Zenone<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Tolhuin<p><\/p>Año: 1913-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: Colección de Palabras Onas<p><\/p>Recopilador/a: Fortunato Griffa<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1896-1901<p><\/p>Agencia: Misionera<p><\/p>","Documento: Cuaderno de Palabras Onas<p><\/p>Recopilador/a: Rosa Gutiérrez<p><\/p>Coproductor/es: «Isabel Gama», O‘kienster /María Luisa, niños y niñas<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1897<p><\/p>Agencia: Misionera<p><\/p>","Documento: <p><\/p>Recopilador/a: José María Beauvoir<p><\/p>Coproductor/es: José Luis Miguel / Kalapacta, Tomás Ven Paschol<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / San Sebastián y Kin / Río Grande<p><\/p>Año: 1892-1908<p><\/p>Agencia: Misionera<p><\/p>","Documento: Vocabulary and sentences derived from Ellis phonetic system but arranged to suit the Ona<p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Halimink y otras personas<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Camino desde Ukatush / Harberton a Najmish <p><\/p>Año: 1894-1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: Vocabulario y frases en idioma ona derivados del sistema fonético Ellis, 1896<p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Kiliutah, Minkiyolh, Kohpen, Kaushel, Kiyotimink, Halchic, Haäru, Keëlu<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Ukatush / Harberton<p><\/p>Año: 1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: Vocabulario y frases en idioma ona derivados del sistema fonético Ellis, 1896<p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Kiliutah, Minkiyolh, Kohpen, Kaushel, Kiyotimink, Halchic, Haäru, Keëlu <p><\/p>Lengua: Selk'nam<p><\/p>Locación: Hammacoia / Bahia Sloggett<p><\/p>Año: 1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: <p><\/p>Recopilador/a: Lucas Bridges<p><\/p>Coproductor/es: Skriot / Capelo<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Lanushwaia / Cambaceres<p><\/p>Año: ca.1896<p><\/p>Agencia: Territoriana<p><\/p>","Documento: <p><\/p>Recopilador/a: Ramón Serrano Montaner<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Jowsken / Bahía Genta Grande<p><\/p>Año: 1879<p><\/p>Agencia: Estatal <p><\/p>","Documento: Pequeño vocabulario de la lengua de los onas de San Sebastián<p><\/p>Recopilador/a: Ramon Lista<p><\/p>Coproductor/es: <p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Bahía San Sebastian<p><\/p>Año: <p><\/p>Agencia: Estatal<p><\/p>","Documento: Vocabulario de la lengua de los Onas del Sud<p><\/p>Recopilador/a: Ramon Lista<p><\/p>Coproductor/es: Noshte, Kaukiolski<p><\/p>Lengua: Selk'nam<p><\/p>Locación: T‘eEjelz / Cabo San Pablo;  Làuwullukwaia /Bahia Thetis; Âcancheloaia / Caleta Falsa<p><\/p>Año: 1887<p><\/p>Agencia: Estatal<p><\/p>","Documento: Palabras exactas del idioma Aona<p><\/p>Recopilador/a: Polidoro Segers<p><\/p>Coproductor/es: Keppenau, Shutta, Kaukiolski, Kouaskol, Esseps<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Bahía San Sebastian hasta Cabo Peñas<p><\/p>Año: 1886-1887<p><\/p>Agencia: Estatal<p><\/p>","Documento: <p><\/p>Recopilador/a: Ferdinand Lahille<p><\/p>Coproductor/es: Czaciolp / Emilio, Ténénesk / Ventura, Tschorsquia /Tísico, Ailpo /Caninco<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Ukatush / Ushuaia<p><\/p>Año: 1896<p><\/p>Agencia: Científica<p><\/p>","Documento: Petit vocabularie de la langue Onas<p><\/p>Recopilador/a: Henryk Arctowski<p><\/p>Coproductor/es: Kalapacte o Karkemanen<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Isla Dawson<p><\/p>Año: 1897<p><\/p>Agencia: Científica<p><\/p>","Documento: Breve vocabulario del idioma de los Onas<p><\/p>Recopilador/a: Otto Nordenskjöld<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Atlshamka / Bahía San Sebastian hasta cabo Peñas<p><\/p>Año: 1895<p><\/p>Agencia: Científica<p><\/p>","Documento: <p><\/p>Recopilador/a: Wenceslao Becerra<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Onaisin / Bahia Inútil <p><\/p>Año: 1898<p><\/p>Agencia: Estatal <p><\/p>","Documento: Vida intelectual: La mímica, el idioma, La escritura.<p><\/p>Recopilador/a: Carlos Gallardo<p><\/p>Coproductor/es: Pedro<p><\/p>Lengua: Selk'nam<p><\/p>Locación: Ukatush / Harberton <p><\/p>Año: 1901-1902<p><\/p>Agencia: Estatal<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-53.9167,-53.724725,-54.856938,-54.699366],[-70.75,-67.79892778,-67.96932700000001,-69.588532],10,null,"Kawésqar",{"interactive":true,"className":"","stroke":true,"color":"#e31a1c","weight":5,"opacity":0.5,"fill":true,"fillColor":"#e31a1c","fillOpacity":0.5},null,null,["Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Kwiškotarelukčís / Brasito, Jáučeljalúkčís / Miguel, «Paolo Canalese», «María», Candelaria», «Miguel Bernabé Rúa», «Ramón Díaz», «Ángel Fabiani», «Silvestre Canales»<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Isla Dawson<p><\/p>Año: 1888-1914<p><\/p>Agencia: Misionera<p><\/p>","Documento: Quadro lingüístico comparativo: Italiano, Ona, Alacaluffo e Tehuelce<p><\/p>Recopilador/a: Maggiorino Borgatello<p><\/p>Coproductor/es: Kwiškotarelukčís /Brasito, Jáučeljalúkčís / Miguel, «Paolo Canalese», «María», Candelaria», «Miguel Bernabé Rúa», «Ramón Díaz», «Ángel Fabiani», «Silvestre Canales»<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Kin / Río Grande<p><\/p>Año: 1888-1911<p><\/p>Agencia: Misionera<p><\/p>","Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Sahualkis<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Canal de Beagle<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Bánerko<p><\/p>Lengua: Kawésqar<p><\/p>Locación: Caleta Darwin<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[-54.7474183,-69.57398070000001,10,null,"Haush",{"interactive":true,"className":"","stroke":true,"color":"#fdbf6f","weight":5,"opacity":0.5,"fill":true,"fillColor":"#fdbf6f","fillOpacity":0.5},null,null,["Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Aikamimink, Ârupin, Yaíachin, Paiwan<p><\/p>Lengua: Haush<p><\/p>Locación: Hammacoia / Bahia Sloggett<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[[-54.7474183,-54.8718719,-55.048056],[-69.57398070000001,-67.4210587,-68.149444],10,null,"Yagan",{"interactive":true,"className":"","stroke":true,"color":"#ff7f00","weight":5,"opacity":0.5,"fill":true,"fillColor":"#ff7f00","fillOpacity":0.5},null,null,["Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Paiwan<p><\/p>Lengua: Yagan<p><\/p>Locación: Hammacoia / Bahia Sloggett<p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Ona-Yahgan-Alakaluf <p><\/p>Recopilador/a: Carlos Spegazzini<p><\/p>Coproductor/es: Paiwan, John Ferness, Kremmer, Wallaæengi, Ukokoengi, Pallaláia, Iammimáatatoengi, Tawakanaxak, Pinang, Tennagaia, Kùttáiawéllis, Iipoenciamma, Henry Lory, Ielampoie, Simaciwellis, Akumátu, Tescapalawallis, Aiakapíia, Gamela<p><\/p>Lengua: Yagan<p><\/p>Locación: Ukatush / Harberton <p><\/p>Año: 1882<p><\/p>Agencia: Científica<p><\/p>","Documento: Vocabulario Yamana-Castellano<p><\/p>Recopilador/a: R. Rau<p><\/p>Coproductor/es: No identificados<p><\/p>Lengua: Yagan<p><\/p>Locación: Caleta Wulaia<p><\/p>Año: ca.1862<p><\/p>Agencia: Misionera<p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addCircleMarkers","args":[-37.3687938,-64.59986720000001,10,null,"Rankül",{"interactive":true,"className":"","stroke":true,"color":"#ff7f00","weight":5,"opacity":0.5,"fill":true,"fillColor":"#ff7f00","fillOpacity":0.5},null,null,["Documento: Vocabulario Rankelche<p><\/p>Recopilador/a: Vujcec Frich<p><\/p>Coproductor/es: Ketrewitu /Mariano Rosas<p><\/p>Lengua: Rankül<p><\/p>Locación: General Acha<p><\/p>Año: 1909<p><\/p>Agencia: Científica <p><\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"11px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLayersControl","args":[[],["Aonekko ‘a‘ien","Mapuzugun","Günün a yajüch","Teushen","Selk'nam","Kawésqar","Haush","Yagan","Rankül"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]}],"limits":{"lat":[-55.048056,-34.5988036],"lng":[-72.0575,-57.9353316]}},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n        function() {\n            $('.leaflet-control-layers-overlays').prepend('<label style=\"text-align:center\">Escenas de documentación<\/label>');\n        }\n    ).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
 </div>
 </div>
 </div>
@@ -7500,7 +7126,7 @@ de Mauro, Luisa Domínguez, Ana Fernández Garay, María Andrea Nicoletti,
 Anahí Mariluan, Melina Caraballo, Carolina Drexler, Doris Klepatsch,
 Josefina Gelain, Martín Chávez</p>
 <p> </p>
-<p>Las documentaciones de Lenguas originarias en Fuegopatagonia y Pampa
+<p>Las documentaciones de lenguas originarias en Fuegopatagonia y Pampa
 han sido numerosas, diversas y continuas durante más de cinco siglos,
 pero hasta el presente no habían sido sistematizadas. Esta cartografía
 interactiva es el resultado de las investigaciones realizadas por el
@@ -7539,11 +7165,9 @@ publicación</a>.
 </div>
 
 <script>
-
-$(document).ready(function () {
-
+$(document).ready(function() {
   // add bootstrap table styles to pandoc tables
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed table-sm');
 
   // initialize mathjax
   var script = document.createElement("script");
@@ -7557,7 +7181,6 @@ $(document).ready(function () {
 <script type="text/javascript">
 $(document).ready(function () {
   FlexDashboard.init({
-    theme: "cosmo",
     fillPage: false,
     orientation: "rows",
     storyboard: false,
@@ -7566,6 +7189,21 @@ $(document).ready(function () {
     defaultFigWidthMobile: 360,
     defaultFigHeightMobile: 460,
     resize_reload: true
+  });
+  var navbar = $(".navbar").first();
+  var body = $("body").first();
+  var sidebar = $(".section.sidebar").first();
+  function addNavbarPadding() {
+    var navHeight = navbar.outerHeight();
+    body.css("padding-top", (navHeight + 8) + "px");
+    sidebar.css("top", navHeight + "px");
+    var resizeEvent = window.document.createEvent("UIEvents");
+    resizeEvent.initUIEvent("resize", true, false, window, 0);
+    window.dispatchEvent(resizeEvent);
+  }
+  if (!window.Shiny) setTimeout(addNavbarPadding, 100);
+  $(document).on("shiny:idle", function() {
+    setTimeout(addNavbarPadding, 50);
   });
 });
 </script>
